@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Evgeniy Orlov](https://up.htmlacademy.ru/javascript/23/user/1776795).
-* Наставник: Андрей Рыжаков.
+* Наставник: [Андрей Рыжаков](https://htmlacademy.ru/profile/id201015).
 
 ---
 
