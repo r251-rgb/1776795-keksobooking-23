@@ -1,10 +1,10 @@
-const TITLE = ['Объект1', 'Объект2', 'Объект3', 'Объект4', 'Объект5', 'Объект6'];
-const TYPE_OFFER = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const TITLES = ['Объект1', 'Объект2', 'Объект3', 'Объект4', 'Объект5', 'Объект6'];
+const TYPE_OFFERS = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const CHECK_IN = ['12:00', '13:00', '14:00'];
 const CHECK_OUT = ['12:00', '13:00', '14:00'];
 const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const PHOTO = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
-const DESCRIPTION = ['Описание1', 'Описание2', 'Описание3', 'Описание4', 'Описание5', 'Описание6'];
+const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
+const DESCRIPTIONS = ['Описание1', 'Описание2', 'Описание3', 'Описание4', 'Описание5', 'Описание6'];
 const PRICE_RANGE = [100, 5000];
 const NUMBER_GUEST = [1, 5];
 const NUMBER_ROOMS = [1, 7];
@@ -51,8 +51,8 @@ function getFeatures () {
 
 function getPhoto () {
   const tmpArray =[];
-  for (let i=0; i < getRandomInteger(1,PHOTO.length) ; i++) {
-    tmpArray[i] = PHOTO[i];
+  for (let i=0; i < getRandomInteger(1,PHOTOS.length) ; i++) {
+    tmpArray[i] = PHOTOS[i];
   }
   return tmpArray;
 }
@@ -71,16 +71,16 @@ const createCardOffer = function() {
     author : {avatar :  `img/avatars/user0${  getRandomInteger(1,8)  }.png`},
 
     offer : {
-      title : TITLE[getRandomInteger(0,5)],
+      title : TITLES[getRandomInteger(0,5)],
       address : `${location.lat}, ${location.lng}`,
       price : getRandomInteger(PRICE_RANGE[0],PRICE_RANGE[1]),
-      type : TYPE_OFFER[getRandomInteger(0,4)],
+      type : TYPE_OFFERS[getRandomInteger(0,4)],
       rooms : getRandomInteger(NUMBER_ROOMS[0], NUMBER_ROOMS[1]),
       guests : getRandomInteger(NUMBER_GUEST[0], NUMBER_GUEST[1]),
       checkin : CHECK_IN[getRandomInteger(0,2)],
       checkout : CHECK_OUT[getRandomInteger(0,2)],
       features : getFeatures(),
-      description : DESCRIPTION[getRandomInteger(0,5)],
+      description : DESCRIPTIONS[getRandomInteger(0,5)],
       photos : getPhoto(),
     },
 
