@@ -92,4 +92,3 @@ const createCardOffer = function() {
 
 const createCardArray = new Array(NUMBER_GENERATE_CARD).fill(null).map(() => createCardOffer() );
 
-//console.log(createCardArray);
