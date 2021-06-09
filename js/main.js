@@ -1,15 +1,7 @@
-//первый вариант
-function getRandomInteger(minValue, maxValue) {
-  return ~~(Math.random() * (maxValue - minValue + 1) + minValue);
-}
-//второй вариант
-const getRandomInteger1 = (minValue, maxValue) => ~~(Math.random() * (maxValue - minValue + 1) + minValue);
+import {NUMBER_GENERATE_CARD} from '../js/setup.js'; //количество карточек для генерации
+import {createCardOffer} from '../js/create-card.js'; //функция генерации карточек
 
+const createCardArray = new Array(NUMBER_GENERATE_CARD).fill(null).map(() => createCardOffer() );
 
-getRandomInteger(1,10);
-getRandomInteger1(1,10);
-
-//вторая функция
-const getRandomFloat = (minValue, maxValue, numberAfterDecimal) => (Math.random() * (maxValue - minValue) + minValue).toFixed(numberAfterDecimal);
-
-getRandomFloat(1.2345,10,5);
+//console.log(createCardArray);
+createCardArray.find();
