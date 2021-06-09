@@ -1,5 +1,5 @@
 import {TITLES, TYPE_OFFERS, CHECK_IN, CHECK_OUT, FEATURES, PHOTOS, DESCRIPTIONS, PRICE_RANGE,
-  NUMBER_GUEST, NUMBER_ROOMS, LOCATION_X_RANGE, LOCATION_Y_RANGE } from '../js/setup.js';
+  NUMBER_GUEST, NUMBER_ROOMS, NUMBER_GENERATE_CARD, LOCATION_X_RANGE, LOCATION_Y_RANGE } from '../js/setup.js';
 
 import {getRandomFloat, getRandomInteger} from '../js/utils.js';
 
@@ -69,4 +69,6 @@ const createCardOffer = function() {
 
 };
 
-export {createCardOffer};
+const createCardArray = new Array(NUMBER_GENERATE_CARD).fill(null).map(() => createCardOffer() );
+
+export {createCardArray};

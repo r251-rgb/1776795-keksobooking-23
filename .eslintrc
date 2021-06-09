@@ -16,4 +16,5 @@ globals:
 extends:
   "htmlacademy/vanilla"
 
-"id-length": [2, { "exceptions": ["i", "j"], "properties": "never" }]
+rules:
+  "id-length": [2, { "exceptions": ["i", "j"], "properties": "never" }]
