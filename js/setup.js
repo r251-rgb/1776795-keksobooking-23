@@ -8,10 +8,17 @@ const DESCRIPTIONS = ['Описание1', 'Описание2', 'Описани�
 const PRICE_RANGE = [100, 5000];
 const NUMBER_GUEST = [1, 5];
 const NUMBER_ROOMS = [1, 7];
-const NUMBER_GENERATE_CARD = 10;
+const NUMBER_GENERATE_CARD = 1;
 const LOCATION_X_RANGE = [35.65000,  35.70000];
 const LOCATION_Y_RANGE = [139.70000, 139.80000];
+const TYPE_HOUSE = {
+  flat: 'Квартира',
+  bungalo: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+  hotel: 'Отель',
+};
 
 export {TITLES, TYPE_OFFERS, CHECK_IN, CHECK_OUT, FEATURES, PHOTOS, DESCRIPTIONS, PRICE_RANGE, NUMBER_GUEST, NUMBER_ROOMS,
-  NUMBER_GENERATE_CARD, LOCATION_X_RANGE, LOCATION_Y_RANGE
+  NUMBER_GENERATE_CARD, LOCATION_X_RANGE, LOCATION_Y_RANGE, TYPE_HOUSE
 };
