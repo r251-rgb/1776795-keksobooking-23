@@ -1,15 +1,14 @@
-//первый вариант
-function getRandomInteger(minValue, maxValue) {
-  return ~~(Math.random() * (maxValue - minValue + 1) + minValue);
-}
-//второй вариант
-const getRandomInteger1 = (minValue, maxValue) => ~~(Math.random() * (maxValue - minValue + 1) + minValue);
+import {createCardArray} from '../js/create-card.js'; //функция генерации карточек
+import {generateCardElement} from '../js/make-card.js'; //функция генерации карточек
+import {enablePage, disablePage} from '../js/form.js'; //функции активации диактивации страницы;
 
 
-getRandomInteger(1,10);
-getRandomInteger1(1,10);
+//generateCardElement(createCardArray);
 
-//вторая функция
-const getRandomFloat = (minValue, maxValue, numberAfterDecimal) => (Math.random() * (maxValue - minValue) + minValue).toFixed(numberAfterDecimal);
+//первый элемент массива для отрисовки
+const tmp = createCardArray[0];
 
-getRandomFloat(1.2345,10,5);
+document.querySelector('#map-canvas').appendChild(generateCardElement(tmp));
+disablePage();
+enablePage();
+
