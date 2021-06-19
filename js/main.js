@@ -12,3 +12,4 @@ document.querySelector('#map-canvas').appendChild(generateCardElement(tmp));
 disablePage();
 enablePage();
 
+
