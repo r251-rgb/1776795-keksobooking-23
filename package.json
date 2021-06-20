@@ -1,5 +1,7 @@
 {
   "name": "keksobooking",
+  "main": "main.js",
+  "type": "module",
   "version": "23.0.0",
   "private": true,
   "description": "Личный проект «Кексобукинг» от HTML Academy",
