@@ -132,4 +132,4 @@ const validFieldForm = function() {
 
 
 };//конец общей проверки всех полей
-export {validFieldForm}
+export {validFieldForm};
