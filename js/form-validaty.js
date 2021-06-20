@@ -3,6 +3,8 @@ const TITLE_MAX_LENGTH = 100;
 const inputUserTitle = document.querySelector('#title');
 const inputUserPrice = document.querySelector('#price');
 const inputFlat = document.querySelector('#type');
+const inputTimeIn = document.querySelector('#timein');
+const inputTimeOut = document.querySelector('#timeout');
 //const typesFlatArray = document.querySelector('#type').children;
 
 //const inputAddress = document.querySelector('#address');
@@ -128,7 +130,15 @@ const validFieldForm = function() {
     }
     inputUserPrice.reportValidity();
   });
-  //------------------------------------------
+
+  //синхронизация полей заезда-выезда
+  inputTimeIn.addEventListener('change', () => {
+    inputTimeOut.value = inputTimeIn.value;
+  });
+
+  inputTimeOut.addEventListener('change', () => {
+    inputTimeIn.value = inputTimeOut.value;
+  });
 
 
 };//конец общей проверки всех полей
