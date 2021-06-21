@@ -1,7 +1,7 @@
 import {createCardArray} from '../js/create-card.js'; //функция генерации карточек
 import {generateCardElement} from '../js/make-card.js'; //функция генерации карточек
-import {enablePage, disablePage} from '../js/form.js'; //функции активации диактивации страницы;
-
+import {enablePage, disablePage} from '../js/form.js'; //функции активации деактивации страницы;
+import {validFieldForm} from '../js/form-validaty.js'; //функции активации деактивации страницы;
 
 //generateCardElement(createCardArray);
 
@@ -13,3 +13,4 @@ disablePage();
 enablePage();
 
 
+validFieldForm();

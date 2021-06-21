@@ -3,8 +3,7 @@ const elementFormFieldset = elementForm.querySelectorAll('*');
 const elementFilter = document.querySelector('.map__filters');
 const elementFilterFieldset = elementFilter.querySelectorAll('*');
 
-//устанавливает атрибут disable true | false указанной коллекции
-const setDisable = function (elements, status) {
+const setDisable = function (elements, status) {//устанавливает атрибут disable true | false указанной коллекции
   elements.forEach((item) => {item.disabled = status;});
 };
 
@@ -25,7 +24,6 @@ const enablePage = function() {
   setDisable(elementFormFieldset, false);
   setDisable(elementFilterFieldset, false);
 };
-
 
 export {enablePage, disablePage};
 
