@@ -1,20 +1,13 @@
 import {enablePage} from '../js/form.js';
 import {createCardArray} from '../js/create-card.js'; //функция генерации карточек
 import {generateCardElement} from '../js/make-card.js'; //функция генерации карточек
-
-
 const inputAddress = document.querySelector('#address');
-const center =   [
-  {
+const resetButton = document.querySelector('.reset__map');
+const latCenter =   (35.680174645).toFixed(5);
+const lngCenter = (139.7539934567).toFixed(5);
 
-    lat: 35.68017,
-    lng: 139.75399,
-  },
-];
-
-let lat = center[0].lat.toFixed(5);
-let lng = center[0].lng.toFixed(5);
-
+let lat = +latCenter;
+let lng = +lngCenter;
 
 const showMap = function() {
 
@@ -29,7 +22,8 @@ const showMap = function() {
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'})
+    {attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'})
     .addTo(map);
 
   //главный маркер
@@ -46,8 +40,7 @@ const showMap = function() {
     });
 
   mainPin
-    .addTo(map)
-    .bindPopup(title);
+    .addTo(map);
 
   //после перемещения маркера передает координаты в поле адреса
   mainPin.on('moveend', (evt) => {
@@ -58,7 +51,6 @@ const showMap = function() {
   createCardArray.forEach((item, index) => {
     lat =  +(createCardArray[index].offer.address.slice(0,8));
     lng = +(createCardArray[index].offer.address.slice(-9));
-    // const titl = createCardArray[index].offer.title;
 
     const othersIcon = L.icon({
       iconUrl: './img/pin.svg',
@@ -79,6 +71,20 @@ const showMap = function() {
       .bindPopup(() => generateCardElement(item)); //замыкание
   });
 
-};
+  resetButton.addEventListener('click', () => {
+    lat = latCenter;
+    lng = lngCenter;
+    map.setView({
+      lat,
+      lng,
+    }, 12);
+    mainPin.setLatLng ({
+      lat,
+      lng,
+    });
+    inputAddress.value = `${lat}, ${lng}`;
 
+  });
+
+};
 export {showMap};
