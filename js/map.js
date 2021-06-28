@@ -1,10 +1,11 @@
-import {enablePage} from '../js/form.js';
+import {enablePage, enableFilters} from '../js/form.js';
 import {createCardArray} from '../js/create-card.js'; //функция генерации карточек
 import {generateCardElement} from '../js/make-card.js'; //функция генерации карточек
 const inputAddress = document.querySelector('#address');
 const resetButton = document.querySelector('.reset__map');
 const latCenter =   (35.680174645).toFixed(5);
 const lngCenter = (139.7539934567).toFixed(5);
+
 
 let lat = +latCenter;
 let lng = +lngCenter;
@@ -47,10 +48,14 @@ const showMap = function() {
     inputAddress.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
   });
 
-  //простые маркеры
-  createCardArray.forEach((item, index) => {
-    lat =  +(createCardArray[index].offer.address.slice(0,8));
-    lng = +(createCardArray[index].offer.address.slice(-9));
+  //создание слоя layerGroup
+  const pinGroup = L.layerGroup().addTo(map);
+
+  // функция создание маркеров из массива
+  const createMarker = function  (array) {
+    //получает массив из строки координат
+    lat =  array.offer.address.split(', ')[0];
+    lng = array.offer.address.split(', ')[1];
 
     const othersIcon = L.icon({
       iconUrl: './img/pin.svg',
@@ -65,26 +70,32 @@ const showMap = function() {
         icon: othersIcon,
       });
 
-    // const as = () => generateCardElement(item);
     othersPin
-      .addTo(map)
-      .bindPopup(() => generateCardElement(item)); //замыкание
+      .addTo(pinGroup)
+      .bindPopup(() => generateCardElement(array)); //замыкание
+  };
+
+
+  //вызов фунции создания маркеров с конкретнвм массивом
+  createCardArray.forEach((card) => {
+    createMarker(card);
+
+    //разрешает разблокировку фильтров
+    enableFilters();
   });
 
+
+  // обработка конопки ресет на карте
   resetButton.addEventListener('click', () => {
     lat = latCenter;
     lng = lngCenter;
-    map.setView({
-      lat,
-      lng,
-    }, 12);
-    mainPin.setLatLng ({
-      lat,
-      lng,
-    });
+    map.setView({lat, lng}, 12);
+    mainPin.setLatLng ({lat, lng});
     inputAddress.value = `${lat}, ${lng}`;
-
   });
+
+  //удаление слоя с простыми метками
+  //markerGroup.clearLayers();
 
 };
 export {showMap};

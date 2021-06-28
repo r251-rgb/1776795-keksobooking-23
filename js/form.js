@@ -20,11 +20,15 @@ const disablePage = function() {
 
 const enablePage = function() {
   elementForm.classList.remove('ad-form--disabled');
-  elementFilter.classList.remove('map__filters--disabled');
+
 
   setDisable(elementFormFieldset, false);
+
+};
+
+const enableFilters = function () {
+  elementFilter.classList.remove('map__filters--disabled');
   setDisable(elementFilterFieldset, false);
 };
 
-
-export {enablePage, disablePage};
+export {enablePage, enableFilters, disablePage};
