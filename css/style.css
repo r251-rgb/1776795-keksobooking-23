@@ -1058,3 +1058,17 @@ fieldset {
     }
   }
 
+.reset__map {
+  position:absolute;
+  left:10px;
+  top:80px;
+  z-index: 1200;
+  width: 34px;
+  height: 34px;
+  background-color: white;
+  border: 2px solid #bbb;
+  border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    box-sizing: border-box;
+
+}
