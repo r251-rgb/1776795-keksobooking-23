@@ -12,4 +12,4 @@ function getRandomInteger (min, max) {
   return Math.floor(result);
 }
 
-export {getRandomFloat, getRandomInteger};
+export {getRandomFloat, getRandomInteger};//, onEscPress

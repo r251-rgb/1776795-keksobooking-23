@@ -1,3 +1,4 @@
+import {latCenter, lngCenter, showMap} from '../js/map.js'; //отрисовка карты;
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
 const inputUserTitle = document.querySelector('#title');
@@ -5,17 +6,18 @@ const inputUserPrice = document.querySelector('#price');
 const inputFlat = document.querySelector('#type');
 const inputTimeIn = document.querySelector('#timein');
 const inputTimeOut = document.querySelector('#timeout');
-//const typesFlatArray = document.querySelector('#type').children;
-
-//const inputAddress = document.querySelector('#address');
+const formResetButton = document.querySelector('.ad-form__reset');
+const form = document.querySelector('.ad-form');
+const inputAddress = document.querySelector('#address');
+const elementRoomNumber = document.querySelector('#room_number');
+const elementCapacity = document.querySelector('#capacity');
+const capacitysArray = elementCapacity.children;
+let room =  elementRoomNumber.value;
 
 
 //валидация форм
 //валидация поля заголовок сообщения
-
-
-//трясет переданный элемент
-const errorValidShakeAdd = function(classe) {
+const errorValidShakeAdd = function(classe) {//трясет переданный элемент
   classe.classList.add('validity-error');
   classe.addEventListener('animationend', () => {
     classe.classList.remove('validity-error');
@@ -28,11 +30,25 @@ const errorValidRedAdd = function(classe, value) {
   else {classe.classList.remove('validity-error-red');}
 };
 
-//общая функция проверки валидности всех полей формы
-const validFieldForm = function() {
+const disableCapacity = function(array) {  //функция дисаблит элементы по номерам переданного массива
+  for (let i=0; i < capacitysArray.length; i++ ) {
+    capacitysArray[i].style.display = '';
+  }
+  for (let i=0; i < array.length; i++) {
+    capacitysArray[array[i]].style.display = 'none';
 
-  //проверка валидности поля Title
-  inputUserTitle.addEventListener('invalid', () => {
+
+  }
+};
+
+const defaultRoomSelector = function() {//для дефолтного состояния, пока не трогали селектор
+  room = elementCapacity[2].selected = true;
+  disableCapacity([0, 1, 3]);
+};
+
+const validFieldForm = function() {//общая функция проверки валидности всех полей формы
+
+  inputUserTitle.addEventListener('invalid', () => { //проверка валидности поля Title
     if (inputUserTitle.validity.valueMissing) { inputUserTitle.setCustomValidity('Это обязательное поле для заполнения'); }
   });
 
@@ -42,9 +58,6 @@ const validFieldForm = function() {
     if (inputLength < TITLE_MIN_LENGTH) {
       errorValidRedAdd(inputUserTitle, true);
       inputUserTitle.setCustomValidity(`Еще нужно ввести ${TITLE_MIN_LENGTH - inputLength} симв.`);}
-    //     else if (inputLength >= TITLE_MIN_LENGTH && inputLength < TITLE_MAX_LENGTH) {
-    //  //     errorValidRedAdd(inputUserTitle, false);
-    //       inputUserTitle.setCustomValidity(`Доступно для ввода еще ${TITLE_MAX_LENGTH - inputLength} симв.`);}
     else if (inputLength > TITLE_MAX_LENGTH) {
       errorValidShakeAdd(inputUserTitle);
       errorValidRedAdd(inputUserTitle, true);
@@ -57,30 +70,16 @@ const validFieldForm = function() {
   });
 
   //валидация и синхронизация полей количества комнат и количества гостей
-  const elementRoomNumber = document.querySelector('#room_number');
-  const elementCapacity = document.querySelector('#capacity');
-  const capacitysArray = elementCapacity.children;
-  let room =  elementRoomNumber.value;
 
-  //функция дисаблит элементы по номерам переданного массива
-  const disableCapacity = function(array) {
-    for (let i=0; i < capacitysArray.length; i++ ) {
-      capacitysArray[i].disabled = false;
-    }
-    for (let i=0; i < array.length; i++) {
-      capacitysArray[array[i]].disabled = true;
 
-    }
-  };
 
-  //для дефолтного состояния, пока не трогали селектор
 
-  if (room === '1') {
-    disableCapacity([0, 1, 3]);
-    room = elementCapacity[2].selected = true;}
 
-  // обработка селектора комнат
-  elementRoomNumber.addEventListener('change', () => {
+  if (room === '1') { //для дефолтного состояния, пока не трогали селектор
+    defaultRoomSelector();
+  }
+
+  elementRoomNumber.addEventListener('change', () => { // обработка селектора комнат
     room = elementRoomNumber.value;
     if (room === '1') {
       disableCapacity([0, 1, 3]);
@@ -100,8 +99,7 @@ const validFieldForm = function() {
     }
   });
 
-  //валидация поля цена
-  const flatsMinPrice = {
+  const flatsMinPrice = {//валидация поля цена
     bungalow: 0,
     flat:1000,
     hotel: 3000,
@@ -115,9 +113,7 @@ const validFieldForm = function() {
     inputUserPrice.placeholder = flatsMinPrice[event.target.value] ;
   });
 
-
-  //проверка валидности поля цена за ночь
-  inputUserPrice.addEventListener('input', () => {
+  inputUserPrice.addEventListener('input', () => {  //проверка валидности поля цена за ночь
 
     if (+inputUserPrice.value >=  +inputUserPrice.min && +inputUserPrice.value < 1000001) {
       inputUserPrice.setCustomValidity('');
@@ -131,8 +127,7 @@ const validFieldForm = function() {
     inputUserPrice.reportValidity();
   });
 
-  //синхронизация полей заезда-выезда
-  inputTimeIn.addEventListener('change', () => {
+  inputTimeIn.addEventListener('change', () => { //синхронизация полей заезда-выезда
     inputTimeOut.value = inputTimeIn.value;
   });
 
@@ -140,6 +135,16 @@ const validFieldForm = function() {
     inputTimeIn.value = inputTimeOut.value;
   });
 
+  // const resetForm = function (evt) {//очистка формы
+  //   evt.preventDefault();
+
+  //   form.reset();
+  //   inputAddress.value = `${latCenter}, ${lngCenter}`;
+  //   defaultRoomSelector();
+  //   showMap('', 1);
+  // };
+
+
 
 };//конец общей проверки всех полей
-export {validFieldForm};
+export {validFieldForm, defaultRoomSelector};

@@ -1,30 +1,28 @@
-import {enablePage, enableFilters} from '../js/form.js';
-import {createCardArray} from '../js/create-card.js'; //функция генерации карточек
+import {enablePage} from '../js/form.js';
+import {defaultRoomSelector} from '../js/form-validaty.js';
 import {generateCardElement} from '../js/make-card.js'; //функция генерации карточек
 const inputAddress = document.querySelector('#address');
 const resetButton = document.querySelector('.reset__map');
 const latCenter =   (35.680174645).toFixed(5);
 const lngCenter = (139.7539934567).toFixed(5);
-
-
 let lat = +latCenter;
 let lng = +lngCenter;
 
-const showMap = function() {
+const showMap = function(loadedCardData) {
 
   inputAddress.value = `${lat}, ${lng}`;
   // /* global L:readonly */
+
   const map = L.map('map-canvas')
     .on('load', () => {
       enablePage();
     })
-
     .setView({lat, lng}, 12);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     {attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'})
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'})
     .addTo(map);
 
   //главный маркер
@@ -41,21 +39,18 @@ const showMap = function() {
     });
 
   mainPin
-    .addTo(map);
+    .addTo(map);//добавляет на карту главный пин
 
-  //после перемещения маркера передает координаты в поле адреса
-  mainPin.on('moveend', (evt) => {
+  mainPin.on('moveend', (evt) => {//после перемещения пина передает координаты в поле адреса
     inputAddress.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
   });
 
-  //создание слоя layerGroup
-  const pinGroup = L.layerGroup().addTo(map);
 
-  // функция создание маркеров из массива
-  const createMarker = function  (array) {
-    //получает массив из строки координат
-    lat =  array.offer.address.split(', ')[0];
-    lng = array.offer.address.split(', ')[1];
+  const pinGroup = L.layerGroup().addTo(map);  //создание слоя layerGroup для простых маркеров
+  loadedCardData.forEach((card) => {
+
+    lat =  card.location.lat;
+    lng = card.location.lng;
 
     const othersIcon = L.icon({
       iconUrl: './img/pin.svg',
@@ -72,30 +67,37 @@ const showMap = function() {
 
     othersPin
       .addTo(pinGroup)
-      .bindPopup(() => generateCardElement(array)); //замыкание
-  };
-
-
-  //вызов фунции создания маркеров с конкретнвм массивом
-  createCardArray.forEach((card) => {
-    createMarker(card);
-
-    //разрешает разблокировку фильтров
-    enableFilters();
+      .bindPopup(() => generateCardElement(card)); //замыкание
   });
 
 
-  // обработка конопки ресет на карте
-  resetButton.addEventListener('click', () => {
+  //удаление слоя с простыми метками
+  //markerGroup.clearLayers();
+
+  const form = document.querySelector('.ad-form');
+  const formResetButton = document.querySelector('.ad-form__reset');
+
+
+  const resetMap = function() {
     lat = latCenter;
     lng = lngCenter;
     map.setView({lat, lng}, 12);
     mainPin.setLatLng ({lat, lng});
     inputAddress.value = `${lat}, ${lng}`;
-  });
+  };
 
-  //удаление слоя с простыми метками
-  //markerGroup.clearLayers();
+  const resetForm = function (evt) {//очистка формы
+    evt.preventDefault();
+    form.reset();
+    inputAddress.value = `${latCenter}, ${lngCenter}`;
+    defaultRoomSelector();
+    resetMap();
+  };
+
+  formResetButton.addEventListener('click', resetForm ); //обработка кнопки сброса формы
+
+  resetButton.addEventListener('click', resetMap);// обработка конопки ресет на карте
 
 };
-export {showMap};
+
+export {showMap, latCenter, lngCenter};

@@ -1,3 +1,5 @@
+import {sendData} from '../js/api-server.js';
+
 const elementForm = document.querySelector('.ad-form');
 const elementFormFieldset = elementForm.querySelectorAll('*');
 const elementFilter = document.querySelector('.map__filters');
@@ -31,4 +33,14 @@ const enableFilters = function () {
   setDisable(elementFilterFieldset, false);
 };
 
-export {enablePage, enableFilters, disablePage};
+const userFormSubmit = function (onSuccess, onError) {
+  elementForm.addEventListener('submit', (evt) => {
+    // evt.preventDefault();
+    sendData(
+      onSuccess,
+      onError,
+      new FormData(evt.target));
+  });
+};
+
+export {enablePage, enableFilters, disablePage, userFormSubmit}; //

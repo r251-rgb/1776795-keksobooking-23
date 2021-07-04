@@ -1062,7 +1062,7 @@ fieldset {
   position:absolute;
   left:10px;
   top:80px;
-  z-index: 1200;
+  z-index: 1000;
   width: 34px;
   height: 34px;
   background-color: white;
@@ -1072,3 +1072,4 @@ fieldset {
     box-sizing: border-box;
 
 }
+
