@@ -1,4 +1,4 @@
-import {enablePage} from '../js/form.js';
+import {enablePage, enableFilters} from '../js/form.js';
 import {defaultRoomSelector} from '../js/form-validaty.js';
 import {generateCardElement} from '../js/make-card.js'; //функция генерации карточек
 const inputAddress = document.querySelector('#address');
@@ -9,7 +9,6 @@ let lat = +latCenter;
 let lng = +lngCenter;
 
 const showMap = function(loadedCardData) {
-
   inputAddress.value = `${lat}, ${lng}`;
   // /* global L:readonly */
 
@@ -45,30 +44,32 @@ const showMap = function(loadedCardData) {
     inputAddress.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
   });
 
+  if (loadedCardData) { //если метки загружены с сервера то отрисовать их
+    const pinGroup = L.layerGroup().addTo(map);  //создание слоя layerGroup для простых маркеров
+    loadedCardData.forEach((card) => {
 
-  const pinGroup = L.layerGroup().addTo(map);  //создание слоя layerGroup для простых маркеров
-  loadedCardData.forEach((card) => {
+      lat =  card.location.lat;
+      lng = card.location.lng;
 
-    lat =  card.location.lat;
-    lng = card.location.lng;
-
-    const othersIcon = L.icon({
-      iconUrl: './img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
-    });
-
-    const othersPin = L.marker(
-      {lat, lng},
-      {
-        draggable: false,
-        icon: othersIcon,
+      const othersIcon = L.icon({
+        iconUrl: './img/pin.svg',
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
       });
 
-    othersPin
-      .addTo(pinGroup)
-      .bindPopup(() => generateCardElement(card)); //замыкание
-  });
+      const othersPin = L.marker(
+        {lat, lng},
+        {
+          draggable: false,
+          icon: othersIcon,
+        });
+
+      othersPin
+        .addTo(pinGroup)
+        .bindPopup(() => generateCardElement(card)); //замыкание
+    });
+    enableFilters();      //разрешает разблокировку фильтров
+  }
 
 
   //удаление слоя с простыми метками

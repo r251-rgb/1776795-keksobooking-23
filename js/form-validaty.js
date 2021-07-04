@@ -1,4 +1,3 @@
-import {latCenter, lngCenter, showMap} from '../js/map.js'; //отрисовка карты;
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
 const inputUserTitle = document.querySelector('#title');
@@ -6,9 +5,6 @@ const inputUserPrice = document.querySelector('#price');
 const inputFlat = document.querySelector('#type');
 const inputTimeIn = document.querySelector('#timein');
 const inputTimeOut = document.querySelector('#timeout');
-const formResetButton = document.querySelector('.ad-form__reset');
-const form = document.querySelector('.ad-form');
-const inputAddress = document.querySelector('#address');
 const elementRoomNumber = document.querySelector('#room_number');
 const elementCapacity = document.querySelector('#capacity');
 const capacitysArray = elementCapacity.children;
@@ -70,11 +66,6 @@ const validFieldForm = function() {//общая функция проверки 
   });
 
   //валидация и синхронизация полей количества комнат и количества гостей
-
-
-
-
-
   if (room === '1') { //для дефолтного состояния, пока не трогали селектор
     defaultRoomSelector();
   }
@@ -143,8 +134,6 @@ const validFieldForm = function() {//общая функция проверки 
   //   defaultRoomSelector();
   //   showMap('', 1);
   // };
-
-
 
 };//конец общей проверки всех полей
 export {validFieldForm, defaultRoomSelector};
