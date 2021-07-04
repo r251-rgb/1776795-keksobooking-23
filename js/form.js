@@ -35,9 +35,9 @@ const enableFilters = function () {
 
 const userFormSubmit = function (onSuccess, onError) {
   elementForm.addEventListener('submit', (evt) => {
-    // evt.preventDefault();
+    evt.preventDefault();
     sendData(
-      onSuccess,
+      () => onSuccess,
       onError,
       new FormData(evt.target));
   });

@@ -31,8 +31,9 @@ const sendData = (onSuccess, onError, body) => {
     .then((response) => {
       if (response.ok) {
         onSuccessModal();
+
       } else {
-        onErrorModal();
+        throw('any');
       }
     })
     .catch(() => {

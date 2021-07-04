@@ -44,6 +44,7 @@ const showMap = function(loadedCardData) {
     inputAddress.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
   });
 
+
   if (loadedCardData) { //если метки загружены с сервера то отрисовать их
     const pinGroup = L.layerGroup().addTo(map);  //создание слоя layerGroup для простых маркеров
     loadedCardData.forEach((card) => {
@@ -70,16 +71,14 @@ const showMap = function(loadedCardData) {
     });
     enableFilters();      //разрешает разблокировку фильтров
   }
-
-
   //удаление слоя с простыми метками
   //markerGroup.clearLayers();
+
 
   const form = document.querySelector('.ad-form');
   const formResetButton = document.querySelector('.ad-form__reset');
 
-
-  const resetMap = function() {
+  const resetMap = () => {//очистка карты
     lat = latCenter;
     lng = lngCenter;
     map.setView({lat, lng}, 12);
@@ -87,7 +86,7 @@ const showMap = function(loadedCardData) {
     inputAddress.value = `${lat}, ${lng}`;
   };
 
-  const resetForm = function (evt) {//очистка формы
+  const resetForm = (evt) => {//очистка формы
     evt.preventDefault();
     form.reset();
     inputAddress.value = `${latCenter}, ${lngCenter}`;
@@ -95,8 +94,10 @@ const showMap = function(loadedCardData) {
     resetMap();
   };
 
-  formResetButton.addEventListener('click', resetForm ); //обработка кнопки сброса формы
 
+
+
+  formResetButton.addEventListener('click', resetForm ); //обработка кнопки сброса формы
   resetButton.addEventListener('click', resetMap);// обработка конопки ресет на карте
 
 };
