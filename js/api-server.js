@@ -1,4 +1,5 @@
 import {onErrorModal, onSuccessModal, onErrorLoadModal} from '../js/modal.js';
+import {resetForm} from '../js/form-validations.js';
 
 const getData = (onSuccess, onError) => {
   fetch('https://23.javascript.pages.academy/keksobooking/data')
@@ -31,6 +32,7 @@ const sendData = (onSuccess, onError, body) => {
     .then((response) => {
       if (response.ok) {
         onSuccessModal();
+        resetForm();
 
       } else {
         throw('any');

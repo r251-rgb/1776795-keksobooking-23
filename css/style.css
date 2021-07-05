@@ -1029,12 +1029,12 @@ fieldset {
   display: none;
 }
 
-.validity-error-red {
+.validation-error-red {
   border-color: red !important;
 }
 
 
-.validity-error {
+.validation-error {
   animation: shake 0.5s; }
   @keyframes shake {
     0%,

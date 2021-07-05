@@ -1,12 +1,11 @@
 import {TYPE_HOUSE } from './setup.js';
-const templateCard = document.querySelector('#card').content.querySelector('article');
-const cardElement = templateCard.cloneNode(true);
-const photoParent = cardElement.querySelector('.popup__photos');
-const photoChild = cardElement.querySelector('.popup__photo');
-const cardDescription = cardElement.querySelector('.popup__description');
+const templateCardElement = document.querySelector('#card').content.querySelector('article');
+const cardElement = templateCardElement.cloneNode(true);
+const photoParentElement = cardElement.querySelector('.popup__photos');
+const photoChildElement = cardElement.querySelector('.popup__photo');
+const cardDescriptionElement = cardElement.querySelector('.popup__description');
 
 const generateCardElement = function(card) {
-//const cardDescription = cardElement.querySelector('.popup__description');
   cardElement.querySelector('.popup__title').textContent = card.offer.title;
   cardElement.querySelector('.popup__text--address').textContent = card.offer.address;
   cardElement.querySelector('.popup__text--price').textContent = `${card.offer.price} ₽/ночь`;
@@ -16,22 +15,22 @@ const generateCardElement = function(card) {
   cardElement.querySelector('.popup__features').textContent = card.offer.features;
 
 
-  cardDescription.textContent = card.offer.description;
+  cardDescriptionElement.textContent = card.offer.description;
   //проверка и скрытие пустых элементов
-  if (!card.offer.description) { cardDescription.textContent = ''; }
-
+  if (!card.offer.description) {
+    cardDescriptionElement.textContent = '';
+  }
 
   cardElement.querySelector('.popup__avatar').src = card.author.avatar;
 
-
   //сборка и вставка фотографий
-  photoParent.innerHTML = '';
+  photoParentElement.innerHTML = '';
   if (card.offer.photos) {
     cardElement.querySelector('.popup__photos').classList.remove('visually-hidden');
     card.offer.photos.forEach((item) =>  {
-      const photo = photoChild.cloneNode(true);
+      const photo = photoChildElement.cloneNode(true);
       photo.src = item;
-      photoParent.appendChild(photo);
+      photoParentElement.appendChild(photo);
     });}
   else if (cardElement.querySelector('.popup__photos')) {
     //скрывает блок если нет фото

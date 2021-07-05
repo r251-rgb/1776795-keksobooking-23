@@ -1,13 +1,14 @@
-import {enablePage, enableFilters} from '../js/form.js';
+import {setPageEnable, setFiltersEnable} from '../js/form.js';
 import {generateCardElement} from '../js/make-card.js'; //функция генерации карточек
-const inputAddress = document.querySelector('#address');
-const resetButton = document.querySelector('.reset__map');
-const latCenter =   (35.680174645).toFixed(5);
-const lngCenter = (139.7539934567).toFixed(5);
-let lat = +latCenter;
-let lng = +lngCenter;
+import {filterPin} from '../js/filter.js'; //функция генерации карточек
+const inputAddressElement = document.querySelector('#address');
+const resetButtonElement = document.querySelector('.reset__map');
+const LAT_CENTER =   (35.680174645).toFixed(5);
+const LNG_CENTER = (139.7539934567).toFixed(5);
+let lat = +LAT_CENTER;
+let lng = +LNG_CENTER;
 
-inputAddress.value = `${lat}, ${lng}`;
+inputAddressElement.value = `${lat}, ${lng}`;
 // /* global L:readonly */
 
 const map = L.map('map-canvas')
@@ -20,34 +21,35 @@ L.tileLayer(
   .addTo(map)
 
   .on('load', () => {
-    enablePage();
+    setPageEnable();
   });
 
 //главный маркер
-const mainIcon = L.icon({
+const setMainIcon = L.icon({
   iconUrl: './img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
-const mainPin = L.marker(
+const setMainPin = L.marker(
   {lat, lng},
   {
     draggable: true,
-    icon: mainIcon,
+    icon: setMainIcon,
   });
 
-mainPin
+setMainPin
   .addTo(map);//добавляет на карту главный пин
 
-mainPin.on('moveend', (evt) => {//после перемещения пина передает координаты в поле адреса
-  inputAddress.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
+setMainPin.on('moveend', (evt) => {//после перемещения пина передает координаты в поле адреса
+  inputAddressElement.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
 
 const showMap = function(loadedCardData) {
   if (loadedCardData) { //если метки загружены с сервера то отрисовать их
+    const getFilteredArray = filterPin(loadedCardData);
     const pinGroup = L.layerGroup().addTo(map);  //создание слоя layerGroup для простых маркеров
-    loadedCardData.forEach((card) => {
+    getFilteredArray.forEach((card) => {
 
       lat =  card.location.lat;
       lng = card.location.lng;
@@ -69,21 +71,21 @@ const showMap = function(loadedCardData) {
         .addTo(pinGroup)
         .bindPopup(() => generateCardElement(card)); //замыкание
     });
-    enableFilters();      //разрешает разблокировку фильтров
+    setFiltersEnable();      //разрешает разблокировку фильтров
   }
   //удаление слоя с простыми метками
   //markerGroup.clearLayers();
 };
 
 const resetMap = () => {//очистка карты
-  lat = latCenter;
-  lng = lngCenter;
+  lat = LAT_CENTER;
+  lng = LNG_CENTER;
   map.setView({lat, lng}, 12);
-  mainPin.setLatLng ({lat, lng});
-  inputAddress.value = `${lat}, ${lng}`;
+  setMainPin.setLatLng ({lat, lng});
+  inputAddressElement.value = `${lat}, ${lng}`;
 };
 
 
-resetButton.addEventListener('click', resetMap);// обработка конопки ресет на карте
+resetButtonElement.addEventListener('click', resetMap);// обработка конопки ресет на карте
 
-export {showMap, latCenter, lngCenter, resetMap};
+export {showMap, LAT_CENTER, LNG_CENTER, resetMap};
