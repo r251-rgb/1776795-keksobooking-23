@@ -1,5 +1,6 @@
 import {resetMap, LAT_CENTER, LNG_CENTER} from './map.js';
 import {sendData} from './api-server.js';
+import {setFilePreview} from '../js/load-photo.js';
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
 const inputTitleElement = document.querySelector('#title');
@@ -11,9 +12,6 @@ const inputAddressElement = document.querySelector('#address');
 const roomNumberElement = document.querySelector('#room_number');
 const capacityElement = document.querySelector('#capacity');
 const formElement = document.querySelector('.ad-form');
-// const avatarElement = document.querySelector('#avatar');
-// const imageElement = document.querySelector('#images');
-
 const capacitysArray = capacityElement.children;
 const formResetButtonElement = document.querySelector('.ad-form__reset');
 let room =  roomNumberElement.value;
@@ -25,6 +23,11 @@ const flatsMinPrice = {//справочник поля цена
   palace: 10000,
 };
 
+const avatarElement = document.querySelector('#avatar');
+const avatarPreviewElement = document.querySelector('.ad-form-header__preview img');
+avatarElement.addEventListener('change', () => setFilePreview(avatarElement, avatarPreviewElement));
+
+// setFilePreview(avatarElement, avatarPreviewElement);
 
 //валидация форм
 //валидация поля заголовок сообщения
@@ -136,7 +139,6 @@ const validateFieldForm = function() {//общая функция проверк
   inputTimeOutElement.addEventListener('change', () => {
     inputTimeInElement.value = inputTimeOutElement.value;
   });
-
 };//конец общей проверки всех полей
 
 const resetForm = (evt) => { //очистка формы
