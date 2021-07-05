@@ -1,3 +1,4 @@
+import {resetMap, latCenter, lngCenter} from '../js/map.js';
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
 const inputUserTitle = document.querySelector('#title');
@@ -5,9 +6,12 @@ const inputUserPrice = document.querySelector('#price');
 const inputFlat = document.querySelector('#type');
 const inputTimeIn = document.querySelector('#timein');
 const inputTimeOut = document.querySelector('#timeout');
+const inputAddress = document.querySelector('#address');
 const elementRoomNumber = document.querySelector('#room_number');
 const elementCapacity = document.querySelector('#capacity');
 const capacitysArray = elementCapacity.children;
+const form = document.querySelector('.ad-form');
+const formResetButton = document.querySelector('.ad-form__reset');
 let room =  elementRoomNumber.value;
 
 
@@ -126,14 +130,15 @@ const validFieldForm = function() {//общая функция проверки 
     inputTimeIn.value = inputTimeOut.value;
   });
 
-  // const resetForm = function (evt) {//очистка формы
-  //   evt.preventDefault();
+  const resetForm = (evt) => {//очистка формы
+    evt.preventDefault();
+    form.reset();
+    inputAddress.value = `${latCenter}, ${lngCenter}`;
+    defaultRoomSelector();
+    resetMap();
+  };
 
-  //   form.reset();
-  //   inputAddress.value = `${latCenter}, ${lngCenter}`;
-  //   defaultRoomSelector();
-  //   showMap('', 1);
-  // };
+  formResetButton.addEventListener('click', resetForm ); //обработка кнопки сброса формы
 
 };//конец общей проверки всех полей
 export {validFieldForm, defaultRoomSelector};

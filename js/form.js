@@ -1,5 +1,4 @@
 import {sendData} from '../js/api-server.js';
-
 const elementForm = document.querySelector('.ad-form');
 const elementFormFieldset = elementForm.querySelectorAll('*');
 const elementFilter = document.querySelector('.map__filters');
@@ -38,9 +37,19 @@ const userFormSubmit = function (onSuccess, onError) {
     evt.preventDefault();
     sendData(
       () => onSuccess,
-      onError,
+      () => onError,
       new FormData(evt.target));
   });
 };
+
+// const resetForm = (evt) => {//очистка формы
+//   evt.preventDefault();
+//   form.reset();
+//   inputAddress.value = `${latCenter}, ${lngCenter}`;
+//   defaultRoomSelector();
+//   resetMap();
+// };
+
+// formResetButton.addEventListener('click', resetForm ); //обработка кнопки сброса формы
 
 export {enablePage, enableFilters, disablePage, userFormSubmit}; //

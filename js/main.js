@@ -14,6 +14,8 @@ getData((card) => showMap(card), () => {
   showMap();
 });
 
+// showMap('', 'reset');
+
 userFormSubmit();
 
 
