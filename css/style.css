@@ -526,7 +526,7 @@ fieldset {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-}
+  }
 
 .ad-form__upload {
   display: -webkit-box;
@@ -573,14 +573,16 @@ fieldset {
 }
 
 .ad-form__photo {
-  margin-right: 10px;
-  margin-bottom: 10px;
-
-  width: 70px;
-  height: 70px;
+    display: flex;
+  min-width: 70px;
+    height: 70px;
 
   background-color: #e4e4de;
   border-radius: 5px;
+}
+
+.ad-form__photo img {
+  margin: 5px;;
 }
 
 .ad-form__element--submit {

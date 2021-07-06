@@ -1,6 +1,6 @@
 import {resetMap, LAT_CENTER, LNG_CENTER} from './map.js';
 import {sendData} from './api-server.js';
-import {setFilePreview} from '../js/load-photo.js';
+import {setFilePreview, resetFileFlatPreview} from '../js/load-photo.js';
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
 const inputTitleElement = document.querySelector('#title');
@@ -26,8 +26,6 @@ const flatsMinPrice = {//справочник поля цена
 const avatarElement = document.querySelector('#avatar');
 const avatarPreviewElement = document.querySelector('.ad-form-header__preview img');
 avatarElement.addEventListener('change', () => setFilePreview(avatarElement, avatarPreviewElement));
-
-// setFilePreview(avatarElement, avatarPreviewElement);
 
 //валидация форм
 //валидация поля заголовок сообщения
@@ -149,6 +147,8 @@ const resetForm = (evt) => { //очистка формы
   inputAddressElement.value = `${LAT_CENTER}, ${LNG_CENTER}`;
   setDefaultRoomSelector();
   resetMap();
+  setFilePreview(avatarElement, avatarPreviewElement); //очищает аватар
+  resetFileFlatPreview();
 };
 
 formResetButtonElement.addEventListener('click', resetForm ); //обработка кнопки сброса формы
