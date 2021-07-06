@@ -17,6 +17,7 @@ const formResetButtonElement = document.querySelector('.ad-form__reset');
 const avatarElement = document.querySelector('#avatar');
 const avatarPreviewElement = document.querySelector('.ad-form-header__preview img');
 const imageElement = document.querySelector('#images');
+const houseFeaturesElement = document.querySelector('#housing-features');
 let room =  roomNumberElement.value;
 const flatsMinPrice = {//справочник поля цена
   bungalow: 0,
