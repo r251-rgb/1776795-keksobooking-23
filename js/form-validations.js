@@ -1,6 +1,6 @@
 import {resetMap, LAT_CENTER, LNG_CENTER} from './map.js';
 import {sendData} from './api-server.js';
-import {setFilePreview, resetFileFlatPreview} from '../js/load-photo.js';
+import {setFilePreview, setFileFlatPreview, resetFileFlatPreview} from '../js/load-photo.js';
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
 const inputTitleElement = document.querySelector('#title');
@@ -14,6 +14,9 @@ const capacityElement = document.querySelector('#capacity');
 const formElement = document.querySelector('.ad-form');
 const capacitysArray = capacityElement.children;
 const formResetButtonElement = document.querySelector('.ad-form__reset');
+const avatarElement = document.querySelector('#avatar');
+const avatarPreviewElement = document.querySelector('.ad-form-header__preview img');
+const imageElement = document.querySelector('#images');
 let room =  roomNumberElement.value;
 const flatsMinPrice = {//справочник поля цена
   bungalow: 0,
@@ -23,9 +26,10 @@ const flatsMinPrice = {//справочник поля цена
   palace: 10000,
 };
 
-const avatarElement = document.querySelector('#avatar');
-const avatarPreviewElement = document.querySelector('.ad-form-header__preview img');
+// обработчик загрузки аватара
 avatarElement.addEventListener('change', () => setFilePreview(avatarElement, avatarPreviewElement));
+// обработчик загрузки фото квартиры
+imageElement.addEventListener('change', () => setFileFlatPreview(imageElement));
 
 //валидация форм
 //валидация поля заголовок сообщения
@@ -37,7 +41,7 @@ const shakeElementOnError = function(element) {//трясет переданны
 };
 
 // true красит бордер переданного елемента красным, false - возвращает исходный цвет
-const paintRedErrorElement = function(element, value) {
+const setRedBorderErrorElement = function(element, value) {
   if (value) {
     element.classList.add('validation-error-red');
   }
@@ -46,7 +50,7 @@ const paintRedErrorElement = function(element, value) {
   }
 };
 
-const SetCapacityDisabled = function(array) {  //функция дисаблит элементы по номерам переданного массива
+const setCapacityDisabled = function(array) {  //функция дисаблит элементы по номерам переданного массива
   for (let i=0; i < capacitysArray.length; i++ ) {
     capacitysArray[i].style.display = '';
   }
@@ -57,7 +61,7 @@ const SetCapacityDisabled = function(array) {  //функция дисаблит
 
 const setDefaultRoomSelector = function() {//для дефолтного состояния, пока не трогали селектор
   room = capacityElement[2].selected = true;
-  SetCapacityDisabled([0, 1, 3]);
+  setCapacityDisabled([0, 1, 3]);
 };
 
 const validateFieldForm = function() {//общая функция проверки валидности всех полей формы
@@ -72,15 +76,15 @@ const validateFieldForm = function() {//общая функция проверк
     const inputLength = inputTitleElement.value.length;
 
     if (inputLength < TITLE_MIN_LENGTH) {
-      paintRedErrorElement(inputTitleElement, true);
+      setRedBorderErrorElement(inputTitleElement, true);
       inputTitleElement.setCustomValidity(`Еще нужно ввести ${TITLE_MIN_LENGTH - inputLength} симв.`);}
     else if (inputLength > TITLE_MAX_LENGTH) {
       shakeElementOnError(inputTitleElement);
-      paintRedErrorElement(inputTitleElement, true);
+      setRedBorderErrorElement(inputTitleElement, true);
       inputTitleElement.setCustomValidity(`Удалите лишние ${inputLength - TITLE_MAX_LENGTH} симв.`);}
     else {
       inputTitleElement.setCustomValidity('');
-      paintRedErrorElement(inputTitleElement, false);
+      setRedBorderErrorElement(inputTitleElement, false);
     }
     inputTitleElement.reportValidity();
   });
@@ -93,19 +97,19 @@ const validateFieldForm = function() {//общая функция проверк
   roomNumberElement.addEventListener('change', () => { // обработка селектора комнат
     room = roomNumberElement.value;
     if (room === '1') {
-      SetCapacityDisabled([0, 1, 3]);
+      setCapacityDisabled([0, 1, 3]);
       room = capacityElement[2].selected = true;
     }
     if (room === '2') {
-      SetCapacityDisabled([0, 3]);
+      setCapacityDisabled([0, 3]);
       room = capacityElement[1].selected = true;
     }
     if (room === '3') {
-      SetCapacityDisabled([3]);
+      setCapacityDisabled([3]);
       room = capacityElement[0].selected = true;
     }
     if (room === '100') {
-      SetCapacityDisabled([0, 1, 2]);
+      setCapacityDisabled([0, 1, 2]);
       room = capacityElement[3].selected = true;
     }
   });
@@ -120,12 +124,12 @@ const validateFieldForm = function() {//общая функция проверк
 
     if (+inputPriceElement.value >=  +inputPriceElement.min && +inputPriceElement.value < 1000001) {
       inputPriceElement.setCustomValidity('');
-      paintRedErrorElement(inputPriceElement, false);
+      setRedBorderErrorElement(inputPriceElement, false);
     }
     else {
       inputPriceElement.setCustomValidity(`Цена может быть от ${inputPriceElement.min} до 1000000 !`);
       shakeElementOnError(inputPriceElement);
-      paintRedErrorElement(inputPriceElement, true);
+      setRedBorderErrorElement(inputPriceElement, true);
     }
     inputPriceElement.reportValidity();
   });
@@ -139,7 +143,7 @@ const validateFieldForm = function() {//общая функция проверк
   });
 };//конец общей проверки всех полей
 
-const resetForm = (evt) => { //очистка формы
+const resetForm = function (evt) { //очистка формы
   if (evt) {
     evt.preventDefault();
   }
