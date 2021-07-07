@@ -1,51 +1,42 @@
-const errorPopup = document.querySelector('#error').content.querySelector('div');
-const successPopup = document.querySelector('#success').content.querySelector('div');
-const errorLoadPopup = document.querySelector('#errorLoad').content.querySelector('div');
-const errorFilePopup = document.querySelector('#errorFile').content.querySelector('div');
-const main = document.querySelector('main');
+const errorPopupElement = document.querySelector('#error').content.querySelector('div');
+const successPopupElement = document.querySelector('#success').content.querySelector('div');
+const errorLoadPopupElement = document.querySelector('#errorLoad').content.querySelector('div');
+const errorFilePopupElement = document.querySelector('#errorFile').content.querySelector('div');
+const mainElement = document.querySelector('main');
 
-const onModalClose = function (evt) {
-  if (evt.keyCode === 27 || (evt.type === 'click')) {
-    evt.preventDefault();
-    errorPopup.classList.add('hidden');
-    successPopup.classList.add('hidden');
-    errorLoadPopup.classList.add('hidden');
-    errorFilePopup.classList.add('hidden');
-    errorPopup.removeEventListener('click', onModalClose);
-    successPopup.removeEventListener('click', onModalClose);
-    errorLoadPopup.removeEventListener('click', onModalClose);
-    errorFilePopup.removeEventListener('click', onModalClose);
-    document.removeEventListener('keydown', onModalClose);//убирает обработчики
+const onErrorModal = function (errId) {
+  let errorElement = '';
+  switch (errId) {
+    case 'file':
+      errorElement = errorFilePopupElement;
+      break;
+    case 'load':
+      errorElement = errorLoadPopupElement;
+      break;
+    case 'send':
+      errorElement = errorPopupElement;
+      break;
+    case 'ok':
+      errorElement = successPopupElement;
+      break;
+    default:
+      errorElement = successPopupElement;
   }
-};
 
-const onErrorModal = function () {
-  errorPopup.classList.remove('hidden');
-  main.insertAdjacentElement('afterbegin', errorPopup);//показывает окно
-  errorPopup.addEventListener('click', onModalClose);//вешает закрытие на обработчик
-  document.addEventListener('keydown', onModalClose);
+  const onModalClose = function (evt) {
+    if (evt.keyCode === 27 || (evt.type === 'click')) {
+      evt.preventDefault();
+      const mainDiv = document.querySelector('main .error');
+      // errorElement.classList.add('hidden');
+      errorElement.removeEventListener('click', onModalClose);
+      document.removeEventListener('keydown', onModalClose);//убирает обработчики
+      mainElement.removeChild(mainDiv);
+    }
+  };
 
-};
-
-const onSuccessModal = function () {
-  successPopup.classList.remove('hidden');
-  main.insertAdjacentElement('afterbegin', successPopup);//показывает окно
-  successPopup.addEventListener('click', onModalClose);//вешает закрытие на обработчик
-  document.addEventListener('keydown', onModalClose);
-};
-
-const onErrorLoadModal = function () {
-  errorLoadPopup.classList.remove('hidden');
-  main.insertAdjacentElement('afterbegin', errorLoadPopup);//показывает окно
-  errorLoadPopup.addEventListener('click', onModalClose);//вешает закрытие на обработчик
+  mainElement.insertAdjacentElement('afterbegin', errorElement);//показывает окно
+  errorElement.addEventListener('click', onModalClose);//вешает закрытие на обработчик
   document.addEventListener('keydown', onModalClose);
 };
 
-const onErrorFileModal = function () {
-  errorFilePopup.classList.remove('hidden');
-  main.insertAdjacentElement('afterbegin', errorFilePopup);//показывает окно
-  errorFilePopup.addEventListener('click', onModalClose);//вешает закрытие на обработчик
-  document.addEventListener('keydown', onModalClose);
-};
-
-export{onErrorModal, onSuccessModal, onErrorLoadModal, onErrorFileModal};//, onSuccessModal
+export{onErrorModal};//, onSuccessModal

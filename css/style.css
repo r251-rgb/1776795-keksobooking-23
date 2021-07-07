@@ -1032,7 +1032,8 @@ fieldset {
 }
 
 .validation-error-red {
-  border-color: red !important;
+  /* border-color: red !important; */
+  border: 2px red solid !important;
 }
 
 

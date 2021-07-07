@@ -15,7 +15,6 @@ const setPageDisable = function() {//блокирует всю страницу
   filterElement.classList.add('map__filters--disabled');
 };
 
-
 const setPageEnable = function() {
   FormElement.classList.remove('ad-form--disabled');
   setElementDisable(FormFieldsetElement, false);

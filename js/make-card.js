@@ -1,15 +1,21 @@
-import {TYPE_HOUSE } from './setup.js';
 const templateCardElement = document.querySelector('#card').content.querySelector('article');
 const cardElement = templateCardElement.cloneNode(true);
 const photoParentElement = cardElement.querySelector('.popup__photos');
 const photoChildElement = cardElement.querySelector('.popup__photo');
 const cardDescriptionElement = cardElement.querySelector('.popup__description');
+const TypeHouse = {
+  flat: 'Квартира',
+  bungalo: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+  hotel: 'Отель',
+};
 
 const generateCardElement = function(card) {
   cardElement.querySelector('.popup__title').textContent = card.offer.title;
   cardElement.querySelector('.popup__text--address').textContent = card.offer.address;
   cardElement.querySelector('.popup__text--price').textContent = `${card.offer.price} ₽/ночь`;
-  cardElement.querySelector('.popup__type').textContent = TYPE_HOUSE[card.offer.type];
+  cardElement.querySelector('.popup__type').textContent = TypeHouse[card.offer.type];
   cardElement.querySelector('.popup__text--capacity').textContent = `${card.offer.rooms} комнаты для ${card.offer.guests} гостей`;
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`;
   cardElement.querySelector('.popup__features').textContent = card.offer.features;

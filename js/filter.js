@@ -2,7 +2,6 @@ const houseTypeElement = document.querySelector('#housing-type');
 const housePriceElement = document.querySelector('#housing-price');
 const houseRoomsElement = document.querySelector('#housing-rooms');
 const houseGuestsElement = document.querySelector('#housing-guests');
-const formElement = document.querySelector('.map__filters');
 const houseFeauteresElement = document.querySelector('#housing-features');
 const PRICE_MIN = 10000;
 const PRICE_MAX = 50000;
@@ -52,10 +51,4 @@ const onFilterChange = function(dataArrays)  {
   return arr.slice(0, 10);
 };
 
-const redraw = function(dataArrays) {
-  // onFilterChange(dataArrays);
-  const aaa = () => onFilterChange(dataArrays);
-  formElement.addEventListener('change', aaa);
-};
-
-export {onFilterChange, redraw};
+export {onFilterChange};

@@ -1,6 +1,7 @@
 import {setPageEnable, setFiltersEnable} from '../js/form.js';
 import {generateCardElement} from '../js/make-card.js'; //функция генерации карточек
 import {onFilterChange} from '../js/filter.js'; //функция генерации карточек
+import {getData} from '../js/api-server.js';
 const inputAddressElement = document.querySelector('#address');
 const resetButtonElement = document.querySelector('.reset__map');
 const formElement = document.querySelector('.map__filters');
@@ -8,10 +9,17 @@ const LAT_CENTER =   (35.680174645).toFixed(5);
 const LNG_CENTER = (139.7539934567).toFixed(5);
 let lat = +LAT_CENTER;
 let lng = +LNG_CENTER;
-
 inputAddressElement.value = `${lat}, ${lng}`;
-// /* global L:readonly */
 
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+// /* global L:readonly */
 const map = L.map('map-canvas')
   .setView({lat, lng}, 12);
 
@@ -23,7 +31,7 @@ L.tileLayer(
 
   .on('load', () => {
     setPageEnable();
-    setFiltersEnable();
+
   });
 
 //главный маркер
@@ -75,9 +83,15 @@ const redrawMap = function (loadedCardData) { // функция пересчет
   placeMarker(getFilteredArray); // рисуем новые маркеры
 };
 
+
 const showMap = function(loadedCardData) { //общая функция отрисовку карты
-  formElement.addEventListener('change', () => redrawMap(loadedCardData));
-  placeMarker(loadedCardData.slice(0,10)); // отрисовка изначального набора маркеров
+
+  if (!loadedCardData) {loadedCardData =  getData();}
+  formElement.addEventListener('change', debounce(() => (redrawMap(loadedCardData))));
+  if (loadedCardData) {
+    placeMarker(loadedCardData.slice(0,10)); // отрисовка изначального набора маркеров
+  }
+  setFiltersEnable();
 };
 
 
@@ -87,9 +101,7 @@ const resetMap = () => {//очистка карты
   map.setView({lat, lng}, 12);
   setMainPin.setLatLng ({lat, lng});
   inputAddressElement.value = `${lat}, ${lng}`;
-
 };
-
 
 resetButtonElement.addEventListener('click', resetMap);// обработка конопки ресет на карте
 

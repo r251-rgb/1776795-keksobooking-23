@@ -1,5 +1,5 @@
-import {resetMap, showMap, LAT_CENTER, LNG_CENTER, redrawMap} from './map.js';
-import {sendData} from './api-server.js';
+import {resetMap, showMap, LAT_CENTER, LNG_CENTER} from './map.js';
+import {sendData, getData} from './api-server.js';
 import {setFilePreview, setFileFlatPreview, resetFileFlatPreview} from '../js/load-photo.js';
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
@@ -18,14 +18,14 @@ const avatarElement = document.querySelector('#avatar');
 const avatarPreviewElement = document.querySelector('.ad-form-header__preview img');
 const imageElement = document.querySelector('#images');
 const houseFeaturesElement = document.querySelector('.map__filters');
-let room =  roomNumberElement.value;
-const flatsMinPrice = {//справочник поля цена
+const FlatsMinPrice = {//справочник поля цена
   bungalow: 0,
   flat:1000,
   hotel: 3000,
   house: 5000,
   palace: 10000,
 };
+let room =  roomNumberElement.value;
 
 // обработчик загрузки аватара
 avatarElement.addEventListener('change', () => setFilePreview(avatarElement, avatarPreviewElement));
@@ -117,8 +117,8 @@ const validateFieldForm = function() {//общая функция проверк
 
   inputFlatElement.addEventListener('change', (event) => {
 
-    inputPriceElement.min = flatsMinPrice[event.target.value];
-    inputPriceElement.placeholder = flatsMinPrice[event.target.value] ;
+    inputPriceElement.min = FlatsMinPrice[event.target.value];
+    inputPriceElement.placeholder = FlatsMinPrice[event.target.value] ;
   });
 
   inputPriceElement.addEventListener('input', () => {  //проверка валидности поля цена за ночь
@@ -155,10 +155,8 @@ const resetForm = function (evt) { //очистка формы
   setFilePreview(avatarElement, avatarPreviewElement); //очищает аватар
   resetFileFlatPreview();
   houseFeaturesElement.reset();
-  // redrawMap();
+  getData((card) => showMap(card), () => {showMap();});
 };
-
-formResetButtonElement.addEventListener('click', resetForm ); //обработка кнопки сброса формы
 
 const submitForm = function (onSuccess, onError) {
   formElement.addEventListener('submit', (evt) => {
@@ -169,6 +167,14 @@ const submitForm = function (onSuccess, onError) {
       new FormData(evt.target));
   });
 };
+
+formResetButtonElement.addEventListener('click', resetForm ); //обработка кнопки сброса формы
+formElement.addEventListener('invalid', (evt) => { // припопытке отправки формы подсвечивает все невалидные поля
+  shakeElementOnError(evt.target);
+  setRedBorderErrorElement(evt.target, true);
+  setTimeout(() => {setRedBorderErrorElement(evt.target, false);
+  }, 500);
+}, true);
 
 export {validateFieldForm, setDefaultRoomSelector, submitForm, resetForm};
 
