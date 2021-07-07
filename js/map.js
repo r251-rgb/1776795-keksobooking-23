@@ -70,16 +70,16 @@ const placeMarker = function(filteredArray) {  // функция рисует м
   });
 };
 
-const redrawMap = function(loadedCardData) { // функция пересчета карты по фильтрам
+const redrawMap = function (loadedCardData) { // функция пересчета карты по фильтрам
   const getFilteredArray = onFilterChange(loadedCardData); // запрос филтрации
   placeMarker(getFilteredArray); // рисуем новые маркеры
-
 };
 
 const showMap = function(loadedCardData) { //общая функция отрисовку карты
   formElement.addEventListener('change', () => redrawMap(loadedCardData));
-  placeMarker(loadedCardData); // отрисовка изначального набора маркеров
+  placeMarker(loadedCardData.slice(0,10)); // отрисовка изначального набора маркеров
 };
+
 
 const resetMap = () => {//очистка карты
   lat = LAT_CENTER;
@@ -87,9 +87,10 @@ const resetMap = () => {//очистка карты
   map.setView({lat, lng}, 12);
   setMainPin.setLatLng ({lat, lng});
   inputAddressElement.value = `${lat}, ${lng}`;
+
 };
 
 
 resetButtonElement.addEventListener('click', resetMap);// обработка конопки ресет на карте
 
-export {showMap, LAT_CENTER, LNG_CENTER, resetMap};
+export {showMap, LAT_CENTER, LNG_CENTER, resetMap, redrawMap};

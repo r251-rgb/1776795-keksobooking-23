@@ -2,16 +2,10 @@ const houseTypeElement = document.querySelector('#housing-type');
 const housePriceElement = document.querySelector('#housing-price');
 const houseRoomsElement = document.querySelector('#housing-rooms');
 const houseGuestsElement = document.querySelector('#housing-guests');
+const formElement = document.querySelector('.map__filters');
+const houseFeauteresElement = document.querySelector('#housing-features');
 const PRICE_MIN = 10000;
 const PRICE_MAX = 50000;
-// const houseFeauteresElement = document.querySelector('#housing-features');
-// const wifiElement = document.querySelector('#filter-wifi');
-// const dishwaterElement = document.querySelector('#filter-dishwasher');
-// const parkingElement = document.querySelector('#filter-parking');
-// const washerElement = document.querySelector('#filter-washer');
-// const elevatorElement = document.querySelector('#filter-elevator');
-// const conditionerElement = document.querySelector('#filter-conditioner');
-const formElement = document.querySelector('.map__filters');
 
 const filterType = function(element) {
   return houseTypeElement.value === 'any' || (element.offer.type === houseTypeElement.value);
@@ -37,26 +31,31 @@ const filterGuests = function(element) {
   return houseGuestsElement.value === 'any' || (element.offer.guests === +houseGuestsElement.value);
 };
 
+const filterFeauters = function (element) {
+  const checkedFeatures = houseFeauteresElement.querySelectorAll('.map__checkbox:checked');
+  if (checkedFeatures.length === 0) { // если не выбран ни один селектор
+    return true;
+  } else if (element.offer.features === undefined) { // если у карточки вообще нет фич
+    return false;
+  }
+  return [].every.call(checkedFeatures, (el) => element.offer.features.includes(el.value));
+};
+
 const onFilterChange = function(dataArrays)  {
   const arr = dataArrays
     .slice()
     .filter((element) => filterType(element))
     .filter((element) => filterRooms(element))
     .filter((element) => filterGuests(element))
-    .filter((element) => filterPrice(element));
-
-  // console.log('arr++', arr);
-
-
-  // console.log(dataArrays,  dataArrays.slice(0, 10));
-  return arr;//dataArrays.slice(0, 10);
+    .filter((element) => filterPrice(element))
+    .filter((element) => filterFeauters(element));
+  return arr.slice(0, 10);
 };
 
 const redraw = function(dataArrays) {
   // onFilterChange(dataArrays);
   const aaa = () => onFilterChange(dataArrays);
   formElement.addEventListener('change', aaa);
-  // console.log('arr--', aaa());
-  // return aaa;
 };
+
 export {onFilterChange, redraw};

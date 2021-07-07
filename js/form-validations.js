@@ -1,4 +1,4 @@
-import {resetMap, LAT_CENTER, LNG_CENTER} from './map.js';
+import {resetMap, showMap, LAT_CENTER, LNG_CENTER, redrawMap} from './map.js';
 import {sendData} from './api-server.js';
 import {setFilePreview, setFileFlatPreview, resetFileFlatPreview} from '../js/load-photo.js';
 const TITLE_MIN_LENGTH = 30;
@@ -17,7 +17,7 @@ const formResetButtonElement = document.querySelector('.ad-form__reset');
 const avatarElement = document.querySelector('#avatar');
 const avatarPreviewElement = document.querySelector('.ad-form-header__preview img');
 const imageElement = document.querySelector('#images');
-const houseFeaturesElement = document.querySelector('#housing-features');
+const houseFeaturesElement = document.querySelector('.map__filters');
 let room =  roomNumberElement.value;
 const flatsMinPrice = {//справочник поля цена
   bungalow: 0,
@@ -154,6 +154,8 @@ const resetForm = function (evt) { //очистка формы
   resetMap();
   setFilePreview(avatarElement, avatarPreviewElement); //очищает аватар
   resetFileFlatPreview();
+  houseFeaturesElement.reset();
+  // redrawMap();
 };
 
 formResetButtonElement.addEventListener('click', resetForm ); //обработка кнопки сброса формы
