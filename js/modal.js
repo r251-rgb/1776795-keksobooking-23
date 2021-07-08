@@ -4,16 +4,16 @@ const errorLoadPopupElement = document.querySelector('#errorLoad').content.query
 const errorFilePopupElement = document.querySelector('#errorFile').content.querySelector('div');
 const mainElement = document.querySelector('main');
 
-const onErrorModal = function (errId) {
+const onErrorModal = function (errorId) {
   let errorElement = '';
-  switch (errId) {
-    case 'file':
+  switch (errorId) {
+    case 'fileError':
       errorElement = errorFilePopupElement;
       break;
-    case 'load':
+    case 'loadError':
       errorElement = errorLoadPopupElement;
       break;
-    case 'send':
+    case 'sendError':
       errorElement = errorPopupElement;
       break;
     case 'ok':
@@ -26,7 +26,7 @@ const onErrorModal = function (errId) {
   const onModalClose = function (evt) {
     if (evt.keyCode === 27 || (evt.type === 'click')) {
       evt.preventDefault();
-      const mainDiv = document.querySelector('main .error');
+      const mainDiv = document.querySelector('main .error, main .success');
       // errorElement.classList.add('hidden');
       errorElement.removeEventListener('click', onModalClose);
       document.removeEventListener('keydown', onModalClose);//убирает обработчики
@@ -35,7 +35,7 @@ const onErrorModal = function (errId) {
   };
 
   mainElement.insertAdjacentElement('afterbegin', errorElement);//показывает окно
-  errorElement.addEventListener('click', onModalClose);//вешает закрытие на обработчик
+  errorElement.addEventListener('click', onModalClose);//вешает обработчик  на закрытие
   document.addEventListener('keydown', onModalClose);
 };
 

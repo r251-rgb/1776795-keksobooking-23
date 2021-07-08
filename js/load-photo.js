@@ -22,7 +22,7 @@ const checkValidFileType = function (file) {// проверка типов фа�
 const setFilePreview = function(element, preview) {// функция загрузки. загружаемый элемент, превью
   if ((element.files[0])) {
     if (!checkValidFileType(element.files[0])) { // проверка типа файла
-      onErrorModal('file');
+      onErrorModal('fileError');
       return;
     }
   }

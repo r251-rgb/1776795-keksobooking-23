@@ -15,7 +15,7 @@ const getData = (onSuccess, onError) => {
       }
     })
     .catch(() => {
-      onErrorModal('load');
+      onErrorModal('loadError');
       onError();
     });
 };
@@ -37,7 +37,7 @@ const sendData = (onSuccess, onError, body) => {
       }
     })
     .catch(() => {
-      onErrorModal('send');
+      onErrorModal('sendError');
     });
 };
 
