@@ -31,7 +31,6 @@ L.tileLayer(
 
   .on('load', () => {
     setPageEnable();
-
   });
 
 //главный маркер
