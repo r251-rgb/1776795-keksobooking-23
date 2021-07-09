@@ -6,15 +6,11 @@ const houseFeauteresElement = document.querySelector('#housing-features');
 const PRICE_MIN = 10000;
 const PRICE_MAX = 50000;
 
-const filterType = function(element) {
-  return houseTypeElement.value === 'any' || (element.offer.type === houseTypeElement.value);
-};
+const filterType = (element) => houseTypeElement.value === 'any' || (element.offer.type === houseTypeElement.value);
 
-const filterRooms = function(element) {
-  return houseRoomsElement.value === 'any' || (element.offer.rooms === +houseRoomsElement.value);
-};
+const filterRooms = (element) => houseRoomsElement.value === 'any' || (element.offer.rooms === +houseRoomsElement.value);
 
-const filterPrice = function(element) {
+const filterPrice = (element) => {
   if (housePriceElement.value === 'any' )  {
     return true;
   } else if (housePriceElement.value === 'low') {
@@ -26,11 +22,9 @@ const filterPrice = function(element) {
   }
 };
 
-const filterGuests = function(element) {
-  return houseGuestsElement.value === 'any' || (element.offer.guests === +houseGuestsElement.value);
-};
+const filterGuests = (element) => houseGuestsElement.value === 'any' || (element.offer.guests === +houseGuestsElement.value);
 
-const filterFeauters = function (element) {
+const filterFeauters = (element) => {
   const checkedFeatures = houseFeauteresElement.querySelectorAll('.map__checkbox:checked');
   if (checkedFeatures.length === 0) { // если не выбран ни один селектор
     return true;
@@ -40,7 +34,7 @@ const filterFeauters = function (element) {
   return [].every.call(checkedFeatures, (el) => element.offer.features.includes(el.value));
 };
 
-const onFilterChange = function(dataArrays)  {
+const onFilterChange = (dataArrays) => {
   const arr = dataArrays
     .slice()
     .filter((element) => filterType(element))

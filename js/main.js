@@ -9,7 +9,6 @@ validateFieldForm();
 
 getData((card) => showMap(card), () => showMap());
 
-// resetForm();
 submitForm();
 
 

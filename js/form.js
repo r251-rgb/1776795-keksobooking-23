@@ -4,23 +4,23 @@ const filterElement = document.querySelector('.map__filters');
 const filterFieldsetElement = filterElement.querySelectorAll('*');
 
 //устанавливает атрибут disable true | false указанному массиву (на коллекциях не работает)
-const setElementDisable = function (elements, status) {
+const setElementDisable = (elements, status) => {
   elements.forEach((item) => {item.disabled = status;});
 };
 
-const setPageDisable = function() {//блокирует всю страницу
+const setPageDisable = () => {//блокирует всю страницу
   setElementDisable(formFieldsetElement, true);
   setElementDisable(filterFieldsetElement, true);
   formElement.classList.add('ad-form--disabled');
   filterElement.classList.add('map__filters--disabled');
 };
 
-const setPageEnable = function() {
+const setPageEnable = () => {
   formElement.classList.remove('ad-form--disabled');
   setElementDisable(formFieldsetElement, false);
 };
 
-const setFiltersEnable = function () {
+const setFiltersEnable = () => {
   filterElement.classList.remove('map__filters--disabled');
   setElementDisable(filterFieldsetElement, false);
 };

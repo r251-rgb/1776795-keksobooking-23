@@ -11,7 +11,7 @@ const TypeHouse = {
   hotel: 'Отель',
 };
 
-const generateCardElement = function(card) {
+const generateCardElement = (card) => {
   cardElement.querySelector('.popup__title').textContent = card.offer.title;
   cardElement.querySelector('.popup__text--address').textContent = card.offer.address;
   cardElement.querySelector('.popup__text--price').textContent = `${card.offer.price} ₽/ночь`;

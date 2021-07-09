@@ -11,13 +11,13 @@ let lat = +LAT_CENTER;
 let lng = +LNG_CENTER;
 inputAddressElement.value = `${lat}, ${lng}`;
 
-function debounce (callback, timeoutDelay = 500) {
+const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-}
+};
 
 // /* global L:readonly */
 const map = L.map('map-canvas')
@@ -55,7 +55,7 @@ setMainPin.on('moveend', (evt) => {//после перемещения пина 
 });
 const markerGroup = L.layerGroup().addTo(map);  //создание слоя layerGroup для простых маркеров
 
-const placeMarker = function(filteredArray) {  // функция рисует маркеры по полученному массиву
+const placeMarker = (filteredArray) => {  // функция рисует маркеры по полученному массиву
   markerGroup.clearLayers(); // сначала очищает слой
   filteredArray.forEach((card) => {
     lat =  card.location.lat;
@@ -77,12 +77,12 @@ const placeMarker = function(filteredArray) {  // функция рисует м
   });
 };
 
-const redrawMap = function (loadedCardData) { // функция пересчета карты по фильтрам
+const redrawMap = (loadedCardData) => { // функция пересчета карты по фильтрам
   const getFilteredArray = onFilterChange(loadedCardData); // запрос филтрации
   placeMarker(getFilteredArray); // рисуем новые маркеры
 };
 
-const showMap = function(loadedCardData) { //общая функция отрисовку карты
+const showMap = (loadedCardData) => { //общая функция отрисовку карты
   formElement.addEventListener('change', debounce(() => (redrawMap(loadedCardData))));
   if (loadedCardData) {
     placeMarker(loadedCardData.slice(0,10)); // отрисовка изначального набора маркеров

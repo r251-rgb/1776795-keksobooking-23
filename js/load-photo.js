@@ -19,7 +19,7 @@ const checkValidFileType = function (file) {// проверка типов фа�
   return false;
 };
 
-const setFilePreview = function(element, preview) {// функция загрузки. загружаемый элемент, превью
+const setFilePreview = (element, preview) => {// функция загрузки. загружаемый элемент, превью
   if ((element.files[0])) {
     if (!checkValidFileType(element.files[0])) { // проверка типа файла
       onErrorModal('fileError');
@@ -27,9 +27,7 @@ const setFilePreview = function(element, preview) {// функция загру�
     }
   }
   const newReader = new FileReader();
-  newReader.onloadend = function () {
-    preview.src = newReader.result;
-  };
+  newReader.onloadend =  () => preview.src = newReader.result;
 
   if (element.files[0] && preview !== null) {
     newReader.readAsDataURL(element.files[0]);
@@ -38,7 +36,7 @@ const setFilePreview = function(element, preview) {// функция загру�
   }
 };
 
-const setFileFlatPreview = function(imageElement) {// загрузка фото квартиры и превью
+const setFileFlatPreview = (imageElement) => {// загрузка фото квартиры и превью
   if (!checkValidFileType(imageElement.files[0])) { // проверка типа файла
     onErrorModal('fileError');
     return;
@@ -52,7 +50,7 @@ const setFileFlatPreview = function(imageElement) {// загрузка фото 
   imageFlat.src = previewObj;
 };
 
-const resetFileFlatPreview = function() {
+const resetFileFlatPreview = () => {
   while (imagePreviewElement.firstChild) {
     imagePreviewElement.removeChild(imagePreviewElement.firstChild);
   }

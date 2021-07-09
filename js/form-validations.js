@@ -27,13 +27,9 @@ const FlatsMinPrice = {//справочник поля цена
 };
 let rooms =  roomNumberElement.value;
 
-// avatarElement.addEventListener('change', () => setFilePreview(avatarElement, avatarPreviewElement));
-// // обработчик загрузки фото квартиры
-// imageElement.addEventListener('change', () => setFileFlatPreview(imageElement));
-
 //валидация форм
 //валидация поля заголовок сообщения
-const shakeElementOnError = function(element) {//трясет переданный элемент
+const shakeElementOnError = (element) => {//трясет переданный элемент
   element.classList.add('validation-error');
   element.addEventListener('animationend', () => {
     element.classList.remove('validation-error');
@@ -41,7 +37,7 @@ const shakeElementOnError = function(element) {//трясет переданны
 };
 
 // true красит бордер переданного елемента красным, false - возвращает исходный цвет
-const setRedBorderErrorElement = function(element, value) {
+const setRedBorderErrorElement = (element, value) => {
   if (value) {
     element.classList.add('validation-error-red');
   }
@@ -50,7 +46,7 @@ const setRedBorderErrorElement = function(element, value) {
   }
 };
 
-const setCapacitysDisabled = function(array) {  //функция дисаблит элементы по номерам переданного массива
+const setCapacitysDisabled = (array) => {  //функция дисаблит элементы по номерам переданного массива
   for (let i=0; i < capacitysArray.length; i++ ) {
     capacitysArray[i].style.display = '';
   }
@@ -59,12 +55,12 @@ const setCapacitysDisabled = function(array) {  //функция дисабли�
   }
 };
 
-const setDefaultRoomSelector = function() {//для дефолтного состояния, пока не трогали селектор
+const setDefaultRoomSelector = () => {//для дефолтного состояния, пока не трогали селектор
   rooms = capacityElement[2].selected = true;
   setCapacitysDisabled([0, 1, 3]);
 };
 
-const validateFieldForm = function() {//общая функция проверки валидности всех полей формы
+const validateFieldForm = () => {//общая функция проверки валидности всех полей формы
 
   inputTitleElement.addEventListener('invalid', () => { //проверка валидности поля Title
     if (inputTitleElement.validity.valueMissing) {
@@ -148,65 +144,14 @@ const validateFieldForm = function() {//общая функция проверк
         setFilePreview(avatarElement, avatarPreviewElement);
         break;
 
-      case imageElement: // обработчик загрузки аватара
+      case imageElement: // обработчик загрузки фото квартиры
         setFileFlatPreview(imageElement);
         break;
     }
   });
-
-  // roomNumberElement.addEventListener('change', () => { // обработка селектора комнат
-  //   rooms = roomNumberElement.value;
-  //   if (rooms === '1') {
-  //     setCapacitysDisabled([0, 1, 3]);
-  //     rooms = capacityElement[2].selected = true;
-  //   }
-  //   if (rooms === '2') {
-  //     setCapacitysDisabled([0, 3]);
-  //     rooms = capacityElement[1].selected = true;
-  //   }
-  //   if (rooms === '3') {
-  //     setCapacitysDisabled([3]);
-  //     rooms = capacityElement[0].selected = true;
-  //   }
-  //   if (rooms === '100') {
-  //     setCapacitysDisabled([0, 1, 2]);
-  //     rooms = capacityElement[3].selected = true;
-  //   }
-  // });
-
-
-  //     if (evt.target === inputTimeInElement) {
-  //       console.log('yy1');
-  //       inputTimeOutElement.value = inputTimeInElement.value;
-  //     } else if (evt.target === inputTimeOutElement) {
-  //       console.log('yy');
-  //       inputTimeInElement.value = inputTimeOutElement.value;
-  //     } else if (evt.target === inputFlatElement) {
-  //       console.log('3333');
-  //       inputPriceElement.min = FlatsMinPrice[evt.target.value];
-  //       inputPriceElement.placeholder = FlatsMinPrice[evt.target.value] ;
-  //     };
-
-
-  // inputFlatElement.addEventListener('change', (evt) => {
-
-  //   inputPriceElement.min = FlatsMinPrice[evt.target.value];
-  //   inputPriceElement.placeholder = FlatsMinPrice[evt.target.value] ;
-  // });
-
-
-  // inputTimeInElement.addEventListener('change', () => { //синхронизация полей заезда-выезда
-  //   inputTimeOutElement.value = inputTimeInElement.value;
-  // });
-
-  // inputTimeOutElement.addEventListener('change', () => {
-  //   inputTimeInElement.value = inputTimeOutElement.value;
-  // });
-
-
 };//конец общей проверки всех полей
 
-const resetForm = function (evt) { //очистка формы
+const resetForm = (evt) => { //очистка формы
   if (evt) {
     evt.preventDefault();
   }
@@ -220,7 +165,7 @@ const resetForm = function (evt) { //очистка формы
   getData((card) => showMap(card), () => {showMap();});
 };
 
-const submitForm = function (onSuccess, onError) {
+const submitForm = (onSuccess, onError) => {
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
     sendData(
@@ -240,4 +185,3 @@ formElement.addEventListener('invalid', (evt) => { // припопытке от�
 }, true);
 
 export {validateFieldForm, setDefaultRoomSelector, submitForm, resetForm};
-
