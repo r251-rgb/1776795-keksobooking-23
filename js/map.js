@@ -82,18 +82,13 @@ const redrawMap = function (loadedCardData) { // функция пересчет
   placeMarker(getFilteredArray); // рисуем новые маркеры
 };
 
-
-
 const showMap = function(loadedCardData) { //общая функция отрисовку карты
-  if (!loadedCardData) {loadedCardData =  getData();} // неудачная попытка грузить данные после ресета формы
   formElement.addEventListener('change', debounce(() => (redrawMap(loadedCardData))));
   if (loadedCardData) {
     placeMarker(loadedCardData.slice(0,10)); // отрисовка изначального набора маркеров
     setFiltersEnable();
   }
 };
-
-
 
 const resetMap = () => {//очистка карты
   lat = LAT_CENTER;

@@ -2,7 +2,7 @@ import {onErrorModal} from '../js/modal.js';
 import {resetForm} from '../js/form-validations.js';
 
 const getData = (onSuccess) => {
-  fetch('https://23.javascript.pages.academy/keksobooking/data1')
+  fetch('https://23.javascript.pages.academy/keksobooking/data')
     .then((response) => {
       if (response.ok) {
         response.json()
