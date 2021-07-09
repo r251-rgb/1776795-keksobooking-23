@@ -1,5 +1,5 @@
-const FormElement = document.querySelector('.ad-form');
-const FormFieldsetElement = FormElement.querySelectorAll('*');
+const formElement = document.querySelector('.ad-form');
+const formFieldsetElement = formElement.querySelectorAll('*');
 const filterElement = document.querySelector('.map__filters');
 const filterFieldsetElement = filterElement.querySelectorAll('*');
 
@@ -9,15 +9,15 @@ const setElementDisable = function (elements, status) {
 };
 
 const setPageDisable = function() {//блокирует всю страницу
-  setElementDisable(FormFieldsetElement, true);
+  setElementDisable(formFieldsetElement, true);
   setElementDisable(filterFieldsetElement, true);
-  FormElement.classList.add('ad-form--disabled');
+  formElement.classList.add('ad-form--disabled');
   filterElement.classList.add('map__filters--disabled');
 };
 
 const setPageEnable = function() {
-  FormElement.classList.remove('ad-form--disabled');
-  setElementDisable(FormFieldsetElement, false);
+  formElement.classList.remove('ad-form--disabled');
+  setElementDisable(formFieldsetElement, false);
 };
 
 const setFiltersEnable = function () {

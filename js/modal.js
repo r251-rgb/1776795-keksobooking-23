@@ -27,7 +27,6 @@ const onErrorModal = function (errorId) {
     if (evt.keyCode === 27 || (evt.type === 'click')) {
       evt.preventDefault();
       const mainDiv = document.querySelector('main .error, main .success');
-      // errorElement.classList.add('hidden');
       errorElement.removeEventListener('click', onModalClose);
       document.removeEventListener('keydown', onModalClose);//убирает обработчики
       mainElement.removeChild(mainDiv);

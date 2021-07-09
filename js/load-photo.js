@@ -40,7 +40,7 @@ const setFilePreview = function(element, preview) {// функция загру�
 
 const setFileFlatPreview = function(imageElement) {// загрузка фото квартиры и превью
   if (!checkValidFileType(imageElement.files[0])) { // проверка типа файла
-    onErrorModal('file');
+    onErrorModal('fileError');
     return;
   }
   const previewObj = URL.createObjectURL(imageElement.files[0]);

@@ -1,8 +1,8 @@
 import {onErrorModal} from '../js/modal.js';
 import {resetForm} from '../js/form-validations.js';
 
-const getData = (onSuccess, onError) => {
-  fetch('https://23.javascript.pages.academy/keksobooking/data')
+const getData = (onSuccess) => {
+  fetch('https://23.javascript.pages.academy/keksobooking/data1')
     .then((response) => {
       if (response.ok) {
         response.json()
@@ -16,7 +16,7 @@ const getData = (onSuccess, onError) => {
     })
     .catch(() => {
       onErrorModal('loadError');
-      onError();
+      // onError();
     });
 };
 

@@ -83,15 +83,16 @@ const redrawMap = function (loadedCardData) { // функция пересчет
 };
 
 
-const showMap = function(loadedCardData) { //общая функция отрисовку карты
 
-  if (!loadedCardData) {loadedCardData =  getData();}
+const showMap = function(loadedCardData) { //общая функция отрисовку карты
+  if (!loadedCardData) {loadedCardData =  getData();} // неудачная попытка грузить данные после ресета формы
   formElement.addEventListener('change', debounce(() => (redrawMap(loadedCardData))));
   if (loadedCardData) {
     placeMarker(loadedCardData.slice(0,10)); // отрисовка изначального набора маркеров
+    setFiltersEnable();
   }
-  setFiltersEnable();
 };
+
 
 
 const resetMap = () => {//очистка карты
