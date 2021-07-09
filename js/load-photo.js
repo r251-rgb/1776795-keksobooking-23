@@ -10,9 +10,17 @@ const FILE_TYPES = [
   'image/gif',
 ];
 
-const checkValidFileType = function (file) {// проверка типов файлов при загрузке
+
+// const equals = (firstValue, secondValue) => {
+//   return firstValue === secondValue;
+// };
+// Идеально:
+
+// const equals = (firstValue, secondValue) => firstValue === secondValue;
+
+const checkValidFileType = (file) => {// проверка типов файлов при загрузке
   for(let i = 0; i < FILE_TYPES.length; i++) {
-    if(file.type === FILE_TYPES[i]) {
+    if (file.type === FILE_TYPES[i]) {
       return true;
     }
   }
