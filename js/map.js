@@ -1,7 +1,7 @@
 import {setPageEnable, setFiltersEnable} from '../js/form.js';
 import {generateCardElement} from '../js/make-card.js'; //функция генерации карточек
 import {onFilterChange} from '../js/filter.js'; //функция генерации карточек
-import {getData} from '../js/api-server.js';
+// import {getData} from '../js/api-server.js';
 const inputAddressElement = document.querySelector('#address');
 const resetButtonElement = document.querySelector('.reset__map');
 const formElement = document.querySelector('.map__filters');
