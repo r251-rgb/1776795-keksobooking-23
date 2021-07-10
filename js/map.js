@@ -1,12 +1,13 @@
 import {setPageEnable, setFiltersEnable} from '../js/form.js';
 import {generateCardElement} from '../js/make-card.js'; //функция генерации карточек
 import {onFilterChange} from '../js/filter.js'; //функция генерации карточек
-// import {getData} from '../js/api-server.js';
+import {getRandomInteger} from '../js/utils.js';
 const inputAddressElement = document.querySelector('#address');
 const resetButtonElement = document.querySelector('.reset__map');
 const formElement = document.querySelector('.map__filters');
 const LAT_CENTER =   (35.680174645).toFixed(5);
 const LNG_CENTER = (139.7539934567).toFixed(5);
+const MAX_PIN_ON_MAP = 10;
 let lat = +LAT_CENTER;
 let lng = +LNG_CENTER;
 inputAddressElement.value = `${lat}, ${lng}`;
@@ -85,7 +86,8 @@ const redrawMap = (loadedCardData) => { // функция пересчета к�
 const showMap = (loadedCardData) => { //общая функция отрисовку карты
   formElement.addEventListener('change', debounce(() => (redrawMap(loadedCardData))));
   if (loadedCardData) {
-    placeMarker(loadedCardData.slice(0,10)); // отрисовка изначального набора маркеров
+    const randomTenPin = getRandomInteger(0, loadedCardData.length - MAX_PIN_ON_MAP);
+    placeMarker(loadedCardData.slice(randomTenPin, randomTenPin + MAX_PIN_ON_MAP)); // отрисовка изначального набора маркеров
     setFiltersEnable();
   }
 };
@@ -100,4 +102,4 @@ const resetMap = () => {//очистка карты
 
 resetButtonElement.addEventListener('click', resetMap);// обработка конопки ресет на карте
 
-export {showMap, LAT_CENTER, LNG_CENTER, resetMap, redrawMap};
+export {showMap, LAT_CENTER, LNG_CENTER, MAX_PIN_ON_MAP, resetMap, redrawMap};

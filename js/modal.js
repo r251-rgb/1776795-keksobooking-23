@@ -31,19 +31,20 @@ const onErrorModal = (errorId) => {
   const buttonKeydownHandler = (evt) => {
     if (evt.keyCode === 27 || evt.key === 'Escape' || evt.key === 'Esc') {
       evt.preventDefault();
-      document.removeEventListener('keydown', buttonKeydownHandler);//убирает обработчики
       closePopup();
     }
   };
 
   const buttonClickHandler = () => {
     closePopup();
-    errorElement.removeEventListener('click', buttonClickHandler);
+    // обработчик будет убран вместе с удалением окна DIV
+    document.removeEventListener('keydown', buttonKeydownHandler);//убирает обработчики
   };
 
   mainElement.insertAdjacentElement('afterbegin', errorElement);//показывает окно
-  errorElement.addEventListener('click', buttonClickHandler);//вешает обработчик  на закрытие
-  document.addEventListener('keydown', buttonKeydownHandler);
+  errorElement.addEventListener('click', buttonClickHandler, {once : true});//вешает одноразовый обработчик  на закрытие
+  document.addEventListener('keydown', buttonKeydownHandler, {once : true});
+
 };
 
 export{onErrorModal};

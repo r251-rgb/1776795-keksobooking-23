@@ -10,14 +10,6 @@ const FILE_TYPES = [
   'image/gif',
 ];
 
-
-// const equals = (firstValue, secondValue) => {
-//   return firstValue === secondValue;
-// };
-// Идеально:
-
-// const equals = (firstValue, secondValue) => firstValue === secondValue;
-
 const checkValidFileType = (file) => {// проверка типов файлов при загрузке
   for(let i = 0; i < FILE_TYPES.length; i++) {
     if (file.type === FILE_TYPES[i]) {
@@ -30,6 +22,7 @@ const checkValidFileType = (file) => {// проверка типов файло�
 const setFilePreview = (element, preview) => {// функция загрузки. загружаемый элемент, превью
   if ((element.files[0])) {
     if (!checkValidFileType(element.files[0])) { // проверка типа файла
+
       onErrorModal('fileError');
       return;
     }
