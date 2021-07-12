@@ -35,7 +35,6 @@ const filterFeauters = (element) => {
 };
 
 const onFilterChange = (dataArrays) => {
-  // console.log(dataArrays);
   const arr = dataArrays
     .slice()
     .filter((element) => filterType(element))

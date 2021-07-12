@@ -44,8 +44,11 @@ setMainPin
 
 setMainPin.on('moveend', (evt) => {//после перемещения пина передает координаты в поле адреса
   inputAddressElement.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
-
 });
+
+//=========================================================================
+
+
 const markerGroup = L.layerGroup().addTo(map);  //создание слоя layerGroup для простых маркеров
 
 const placeMarker = (filteredArray) => {  // функция рисует маркеры по полученному массиву
@@ -70,36 +73,26 @@ const placeMarker = (filteredArray) => {  // функция рисует мар�
   });
 };
 
-const redrawMap = (loadedCardData) => { // функция пересчета карты по фильтрам
-  const getFilteredArray = onFilterChange(loadedCardData); // запрос филтрации
+const redrawMap = (data) => { // функция пересчета карты по фильтрам
+  const getFilteredArray = onFilterChange(data); // запрос филтрации
   placeMarker(getFilteredArray); // рисуем новые маркеры
 };
 
-const overShowMap = (loaded) => {
-
-
-  const showMap = (loadedCardData) => { //общая функция отрисовку карты
-    formElement.addEventListener('change', debounce(() => (redrawMap(loadedCardData))));
-    if (loadedCardData) {
-      const randomTenPin = getRandomInteger(0, loadedCardData.length - MAX_PIN_ON_MAP);
-      placeMarker(loadedCardData.slice(randomTenPin, randomTenPin + MAX_PIN_ON_MAP)); // отрисовка изначального набора маркеров
-      setFiltersEnable();
-    }
-  };
-
-
-  if (loaded) {
-    const temp = loaded;
-    showMap(temp);
-    // console.log('tm', temp);
-  }
-  else {
-    showMap(loaded);
-    // console.log('l',loaded);
-  }
-
+const showMap = (data) => { //общая функция отрисовку карты
+  if (data) {
+    const randomTenPin = getRandomInteger(0, data.length - MAX_PIN_ON_MAP);
+    placeMarker(data.slice(randomTenPin, randomTenPin + MAX_PIN_ON_MAP)); // отрисовка изначального набора маркеров
+  // placeMarker(data.slice(0,10));
+}
 };
 
+const initMap = (data) => {
+  formElement.addEventListener('change', debounce(() => (redrawMap(data))));
+  const temp = data;
+  showMap(data);
+  setFiltersEnable();
+  return temp;
+};
 
 const resetMap = () => {//очистка карты
   lat = LAT_CENTER;
@@ -113,4 +106,4 @@ resetButtonElement.addEventListener('click', resetMap);// обработка к�
 
 const getDefaultLatLng = () => ([LAT_CENTER, LNG_CENTER]); //вернцть значение в форм ресет
 
-export {resetMap, redrawMap, getDefaultLatLng, overShowMap}; //showMap,
+export {resetMap, redrawMap, showMap, getDefaultLatLng, initMap}; //showMap,
