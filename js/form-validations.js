@@ -1,5 +1,6 @@
-import {resetMap, showMap, getDefaultLatLng} from './map.js';
-import {sendData, getData} from './api-server.js';
+import {resetMap, getDefaultLatLng, overShowMap} from './map.js';
+import {sendData} from './api-server.js';
+import {showModalWindow} from './modal.js';
 import {setFilePreview, setFileFlatPreview, resetFileFlatPreview} from '../js/load-photo.js';
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
@@ -164,15 +165,25 @@ const resetForm = (evt) => { //очистка формы
   setFilePreview(avatarElement, avatarPreviewElement); //очищает аватар
   resetFileFlatPreview();
   houseFeaturesElement.reset();
-  getData((card) => showMap(card), () => {showMap();});
+  // getData((card) => showMap(card), () => {showMap();});
+  overShowMap();
+};
+
+const onSuccessSend =() => {
+  showModalWindow('ok');
+  resetForm();
+};
+
+const onErrorSend =() => {
+  showModalWindow('sendError');
 };
 
 const submitForm = (onSuccess, onError) => {
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
     sendData(
-      () => onSuccess,
-      () => onError,
+      onSuccess(),
+      onError(),
       new FormData(evt.target));
   });
 };
@@ -186,4 +197,4 @@ formElement.addEventListener('invalid', (evt) => { // припопытке от�
   }, 500);
 }, true);
 
-export {validateFieldForm, setDefaultRoomSelector, submitForm, resetForm};
+export {validateFieldForm, setDefaultRoomSelector, submitForm, resetForm, onErrorSend, onSuccessSend};

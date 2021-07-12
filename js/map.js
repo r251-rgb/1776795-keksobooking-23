@@ -75,14 +75,31 @@ const redrawMap = (loadedCardData) => { // функция пересчета к�
   placeMarker(getFilteredArray); // рисуем новые маркеры
 };
 
-const showMap = (loadedCardData) => { //общая функция отрисовку карты
-  formElement.addEventListener('change', debounce(() => (redrawMap(loadedCardData))));
-  if (loadedCardData) {
-    const randomTenPin = getRandomInteger(0, loadedCardData.length - MAX_PIN_ON_MAP);
-    placeMarker(loadedCardData.slice(randomTenPin, randomTenPin + MAX_PIN_ON_MAP)); // отрисовка изначального набора маркеров
-    setFiltersEnable();
+const overShowMap = (loaded) => {
+
+
+  const showMap = (loadedCardData) => { //общая функция отрисовку карты
+    formElement.addEventListener('change', debounce(() => (redrawMap(loadedCardData))));
+    if (loadedCardData) {
+      const randomTenPin = getRandomInteger(0, loadedCardData.length - MAX_PIN_ON_MAP);
+      placeMarker(loadedCardData.slice(randomTenPin, randomTenPin + MAX_PIN_ON_MAP)); // отрисовка изначального набора маркеров
+      setFiltersEnable();
+    }
+  };
+
+
+  if (loaded) {
+    const temp = loaded;
+    showMap(temp);
+    // console.log('tm', temp);
   }
+  else {
+    showMap(loaded);
+    // console.log('l',loaded);
+  }
+
 };
+
 
 const resetMap = () => {//очистка карты
   lat = LAT_CENTER;
@@ -96,4 +113,4 @@ resetButtonElement.addEventListener('click', resetMap);// обработка к�
 
 const getDefaultLatLng = () => ([LAT_CENTER, LNG_CENTER]); //вернцть значение в форм ресет
 
-export {showMap, resetMap, redrawMap, getDefaultLatLng};
+export {resetMap, redrawMap, getDefaultLatLng, overShowMap}; //showMap,

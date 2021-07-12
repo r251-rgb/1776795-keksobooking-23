@@ -1,4 +1,4 @@
-import {onErrorModal} from '../js/modal.js';
+import {showModalWindow} from '../js/modal.js';
 const imagePreviewElement = document.querySelector('.ad-form__photo');
 
 
@@ -23,7 +23,7 @@ const setFilePreview = (element, preview) => {// функция загрузки
   if ((element.files[0])) {
     if (!checkValidFileType(element.files[0])) { // проверка типа файла
 
-      onErrorModal('fileError');
+      showModalWindow('fileError');
       return;
     }
   }
@@ -39,7 +39,7 @@ const setFilePreview = (element, preview) => {// функция загрузки
 
 const setFileFlatPreview = (imageElement) => {// загрузка фото квартиры и превью
   if (!checkValidFileType(imageElement.files[0])) { // проверка типа файла
-    onErrorModal('fileError');
+    showModalWindow('fileError');
     return;
   }
   const previewObj = URL.createObjectURL(imageElement.files[0]);

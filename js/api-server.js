@@ -1,7 +1,4 @@
-import {onErrorModal} from '../js/modal.js';
-import {resetForm} from '../js/form-validations.js';
-
-const getData = (onSuccess) => {
+const getData = (onSuccess, onError) => {
   fetch('https://23.javascript.pages.academy/keksobooking/data')
     .then((response) => {
       if (response.ok) {
@@ -15,8 +12,7 @@ const getData = (onSuccess) => {
       }
     })
     .catch(() => {
-      onErrorModal('loadError');
-      // onError();
+      onError();
     });
 };
 
@@ -29,15 +25,14 @@ const sendData = (onSuccess, onError, body) => {
     })
     .then((response) => {
       if (response.ok) {
-        onErrorModal('ok');
-        resetForm();
+        onSuccess();
 
       } else {
         throw('any');
       }
     })
     .catch(() => {
-      onErrorModal('sendError');
+      onError();
     });
 };
 

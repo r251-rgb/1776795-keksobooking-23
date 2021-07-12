@@ -4,7 +4,7 @@ const errorLoadPopupElement = document.querySelector('#errorLoad').content.query
 const errorFilePopupElement = document.querySelector('#errorFile').content.querySelector('div');
 const mainElement = document.querySelector('main');
 
-const onErrorModal = (errorId) => {
+const showModalWindow = (errorId) => {
   let errorElement = '';
   switch (errorId) {
     case 'fileError':
@@ -47,4 +47,4 @@ const onErrorModal = (errorId) => {
 
 };
 
-export{onErrorModal};
+export{showModalWindow};
