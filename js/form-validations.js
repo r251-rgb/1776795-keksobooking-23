@@ -1,4 +1,4 @@
-import {resetMap, showMap, LAT_CENTER, LNG_CENTER} from './map.js';
+import {resetMap, showMap, getDefaultLatLng} from './map.js';
 import {sendData, getData} from './api-server.js';
 import {setFilePreview, setFileFlatPreview, resetFileFlatPreview} from '../js/load-photo.js';
 const TITLE_MIN_LENGTH = 30;
@@ -156,7 +156,9 @@ const resetForm = (evt) => { //очистка формы
     evt.preventDefault();
   }
   formElement.reset();
-  inputAddressElement.value = `${LAT_CENTER}, ${LNG_CENTER}`;
+  const getLatLng = getDefaultLatLng();
+  inputAddressElement.value = `${getLatLng[0]}, ${getLatLng[1]}`;
+
   setDefaultRoomSelector();
   resetMap();
   setFilePreview(avatarElement, avatarPreviewElement); //очищает аватар

@@ -1,7 +1,7 @@
 import {setPageEnable, setFiltersEnable} from '../js/form.js';
 import {generateCardElement} from '../js/make-card.js'; //функция генерации карточек
 import {onFilterChange} from '../js/filter.js'; //функция генерации карточек
-import {getRandomInteger} from '../js/utils.js';
+import {getRandomInteger, debounce} from '../js/utils.js';
 const inputAddressElement = document.querySelector('#address');
 const resetButtonElement = document.querySelector('.reset__map');
 const formElement = document.querySelector('.map__filters');
@@ -11,14 +11,6 @@ const MAX_PIN_ON_MAP = 10;
 let lat = +LAT_CENTER;
 let lng = +LNG_CENTER;
 inputAddressElement.value = `${lat}, ${lng}`;
-
-const debounce = (callback, timeoutDelay = 500) => {
-  let timeoutId;
-  return (...rest) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
-  };
-};
 
 // /* global L:readonly */
 const map = L.map('map-canvas')
@@ -102,4 +94,6 @@ const resetMap = () => {//очистка карты
 
 resetButtonElement.addEventListener('click', resetMap);// обработка конопки ресет на карте
 
-export {showMap, LAT_CENTER, LNG_CENTER, MAX_PIN_ON_MAP, resetMap, redrawMap};
+const getDefaultLatLng = () => ([LAT_CENTER, LNG_CENTER]); //вернцть значение в форм ресет
+
+export {showMap, resetMap, redrawMap, getDefaultLatLng};
