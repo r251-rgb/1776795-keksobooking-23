@@ -82,7 +82,6 @@ const showMap = (data) => { //общая функция отрисовку ка�
   if (data) {
     const randomTenPin = getRandomInteger(0, data.length - MAX_PIN_ON_MAP);
     placeMarker(data.slice(randomTenPin, randomTenPin + MAX_PIN_ON_MAP)); // отрисовка изначального набора маркеров
-  // placeMarker(data.slice(0,10));
   }
 };
 

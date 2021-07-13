@@ -1,4 +1,4 @@
-import {resetMap, getDefaultLatLng, initMap} from './map.js';
+import {resetMap, getDefaultLatLng, initMap, showMap} from './map.js';
 import {sendData, getData} from './api-server.js';
 import {showModalWindow} from './modal.js';
 import {setFilePreview, setFileFlatPreview, resetFileFlatPreview} from '../js/load-photo.js';
@@ -165,7 +165,7 @@ const resetForm = (evt) => { //очистка формы
   setFilePreview(avatarElement, avatarPreviewElement); //очищает аватар
   resetFileFlatPreview();
   houseFeaturesElement.reset();
-  getData((data) => initMap(data), () => showModalWindow('loadError'));
+  getData((data) => showMap(data), () => showModalWindow('loadError'));
 };
 
 const onSuccessSend =() => {
