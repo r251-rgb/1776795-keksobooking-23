@@ -1,4 +1,4 @@
-import {resetMap, getDefaultLatLng, initMap, showMap} from './map.js';
+import {resetMap, getDefaultLatLng, showMap} from './map.js';
 import {sendData, getData} from './api-server.js';
 import {showModalWindow} from './modal.js';
 import {setFilePreview, setFileFlatPreview, resetFileFlatPreview} from '../js/load-photo.js';
