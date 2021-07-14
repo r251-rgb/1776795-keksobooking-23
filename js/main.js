@@ -8,10 +8,6 @@ setPageDisable();
 
 validateFieldForm();
 
-// getData((card) => showMap(card), () => showMap());
-
-// getData((card) => onSuccessLoad(card), () => showModalWindow('loadError'));
-
 getData((card) => initMap(card), () => showModalWindow('loadError'));
 
 submitForm(() => onSuccessSend, () => onErrorSend);
