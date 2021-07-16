@@ -3,7 +3,6 @@ const successPopupElement = document.querySelector('#success').content.querySele
 const errorLoadPopupElement = document.querySelector('#errorLoad').content.querySelector('div');
 const errorFilePopupElement = document.querySelector('#errorFile').content.querySelector('div');
 const mainElement = document.querySelector('main');
-const ESC_SCAN_CODE = 27;
 
 const showModalWindow = (errorId) => {
   let errorElement = '';
@@ -30,7 +29,7 @@ const showModalWindow = (errorId) => {
   };
 
   const buttonKeydownHandler = (evt) => {
-    if (evt.keyCode === ESC_SCAN_CODE || evt.key === 'Escape' || evt.key === 'Esc') {
+    if (evt.keyCode === 27 || evt.key === 'Escape' || evt.key === 'Esc') {
       evt.preventDefault();
       closePopup();
     }

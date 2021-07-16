@@ -5,7 +5,7 @@ function getRandomInteger (min, max) {
   return Math.floor(result);
 }
 
-const setDebounce = (callback, timeoutDelay = 500) => {
+const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
@@ -13,4 +13,4 @@ const setDebounce = (callback, timeoutDelay = 500) => {
   };
 };
 
-export {getRandomInteger, setDebounce};
+export {getRandomInteger, debounce};
