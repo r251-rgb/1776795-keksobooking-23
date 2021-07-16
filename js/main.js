@@ -1,10 +1,15 @@
-//import {createCardArray} from '../js/create-card.js'; //функция генерации карточек
-//import {generateCardElement} from '../js/make-card.js'; //функция генерации карточек
-import {disablePage} from '../js/form.js'; //функции активации деактивации страницы;
-import {validFieldForm} from '../js/form-validaty.js'; //функции валидации форм;
-import {showMap} from '../js/map.js'; //отрисовка карты;
+import {validateFieldForm, submitForm, onSuccessSend, onErrorSend} from './form-validations.js'; //функции валидации форм;
+import {initializeMap} from '../js/map.js'; //отрисовка карты;
+import {getData} from '../js/api-server.js';
+import {setPageDisable} from '../js/form.js';
+import {showModalWindow} from '../js/modal.js';
 
-disablePage();
-validFieldForm();
-showMap();
+setPageDisable();
+
+validateFieldForm();
+
+getData((card) => initializeMap(card), () => showModalWindow('loadError'));
+
+submitForm(() => onSuccessSend, () => onErrorSend);
+
 

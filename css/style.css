@@ -526,7 +526,7 @@ fieldset {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-}
+  }
 
 .ad-form__upload {
   display: -webkit-box;
@@ -573,14 +573,16 @@ fieldset {
 }
 
 .ad-form__photo {
-  margin-right: 10px;
-  margin-bottom: 10px;
-
-  width: 70px;
-  height: 70px;
+    display: flex;
+  min-width: 70px;
+    height: 70px;
 
   background-color: #e4e4de;
   border-radius: 5px;
+}
+
+.ad-form__photo img {
+  margin: 5px;;
 }
 
 .ad-form__element--submit {
@@ -1029,12 +1031,13 @@ fieldset {
   display: none;
 }
 
-.validity-error-red {
-  border-color: red !important;
+.validation-error-red {
+  /* border-color: red !important; */
+  border: 2px red solid !important;
 }
 
 
-.validity-error {
+.validation-error {
   animation: shake 0.5s; }
   @keyframes shake {
     0%,
@@ -1062,7 +1065,7 @@ fieldset {
   position:absolute;
   left:10px;
   top:80px;
-  z-index: 1200;
+  z-index: 1000;
   width: 34px;
   height: 34px;
   background-color: white;
@@ -1072,3 +1075,4 @@ fieldset {
     box-sizing: border-box;
 
 }
+

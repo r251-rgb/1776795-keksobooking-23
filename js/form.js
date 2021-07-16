@@ -1,34 +1,28 @@
-const elementForm = document.querySelector('.ad-form');
-const elementFormFieldset = elementForm.querySelectorAll('*');
-const elementFilter = document.querySelector('.map__filters');
-const elementFilterFieldset = elementFilter.querySelectorAll('*');
+const formElement = document.querySelector('.ad-form');
+const formFieldsetElement = formElement.querySelectorAll('*');
+const filterElement = document.querySelector('.map__filters');
+const filterFieldsetElement = filterElement.querySelectorAll('*');
 
 //устанавливает атрибут disable true | false указанному массиву (на коллекциях не работает)
-const setDisable = function (elements, status) {
+const setElementDisable = (elements, status) => {
   elements.forEach((item) => {item.disabled = status;});
 };
 
-//блокирует всю страницу
-const disablePage = function() {
-  setDisable(elementFormFieldset, true);
-  setDisable(elementFilterFieldset, true);
-
-  elementForm.classList.add('ad-form--disabled');
-  elementFilter.classList.add('map__filters--disabled');
+const setPageDisable = () => {//блокирует всю страницу
+  setElementDisable(formFieldsetElement, true);
+  setElementDisable(filterFieldsetElement, true);
+  formElement.classList.add('ad-form--disabled');
+  filterElement.classList.add('map__filters--disabled');
 };
 
-
-const enablePage = function() {
-  elementForm.classList.remove('ad-form--disabled');
-
-
-  setDisable(elementFormFieldset, false);
-
+const setPageEnable = () => {
+  formElement.classList.remove('ad-form--disabled');
+  setElementDisable(formFieldsetElement, false);
 };
 
-const enableFilters = function () {
-  elementFilter.classList.remove('map__filters--disabled');
-  setDisable(elementFilterFieldset, false);
+const setFiltersEnable = () => {
+  filterElement.classList.remove('map__filters--disabled');
+  setElementDisable(filterFieldsetElement, false);
 };
 
-export {enablePage, enableFilters, disablePage};
+export {setPageEnable, setFiltersEnable, setPageDisable};
