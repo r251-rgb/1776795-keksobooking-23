@@ -1,7 +1,7 @@
 import {setPageEnable, setFiltersEnable} from '../js/form.js';
 import {generateCardElement} from '../js/make-card.js'; //функция генерации карточек
 import {onFilterChange} from '../js/filter.js'; //функция генерации карточек
-import {getRandomInteger, debounce} from '../js/utils.js';
+import {getRandomInteger, setDebounce} from '../js/utils.js';
 const inputAddressElement = document.querySelector('#address');
 const resetButtonElement = document.querySelector('.reset__map');
 const formElement = document.querySelector('.map__filters');
@@ -85,8 +85,8 @@ const showMap = (data) => { //общая функция отрисовку ка�
   }
 };
 
-const initMap = (data) => {
-  formElement.addEventListener('change', debounce(() => (redrawMap(data))));
+const initializeMap = (data) => {
+  formElement.addEventListener('change', setDebounce(() => (redrawMap(data))));
   const temp = data;
   showMap(data);
   setFiltersEnable();
@@ -105,4 +105,4 @@ resetButtonElement.addEventListener('click', resetMap);// обработка к�
 
 const getDefaultLatLng = () => ([LAT_CENTER, LNG_CENTER]); //вернцть значение в форм ресет
 
-export {resetMap, redrawMap, showMap, getDefaultLatLng, initMap}; //showMap,
+export {resetMap, redrawMap, showMap, getDefaultLatLng, initializeMap}; //showMap,

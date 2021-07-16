@@ -47,7 +47,7 @@ const setRedBorderErrorElement = (element, value) => {
   }
 };
 
-const setCapacitysDisabled = (array) => {  //функция дисаблит элементы по номерам переданного массива
+const setCapacityDisabled = (array) => {  //функция дисаблит элементы по номерам переданного массива
   for (let i=0; i < capacitysArray.length; i++ ) {
     capacitysArray[i].style.display = '';
   }
@@ -58,7 +58,7 @@ const setCapacitysDisabled = (array) => {  //функция дисаблит э�
 
 const setDefaultRoomSelector = () => {//для дефолтного состояния, пока не трогали селектор
   rooms = capacityElement[2].selected = true;
-  setCapacitysDisabled([0, 1, 3]);
+  setCapacityDisabled([0, 1, 3]);
 };
 
 const validateFieldForm = () => {//общая функция проверки валидности всех полей формы
@@ -124,19 +124,19 @@ const validateFieldForm = () => {//общая функция проверки в
       case roomNumberElement: // обработка селектора комнат
         rooms = roomNumberElement.value;
         if (rooms === '1') {
-          setCapacitysDisabled([0, 1, 3]);
+          setCapacityDisabled([0, 1, 3]);
           rooms = capacityElement[2].selected = true;
         }
         if (rooms === '2') {
-          setCapacitysDisabled([0, 3]);
+          setCapacityDisabled([0, 3]);
           rooms = capacityElement[1].selected = true;
         }
         if (rooms === '3') {
-          setCapacitysDisabled([3]);
+          setCapacityDisabled([3]);
           rooms = capacityElement[0].selected = true;
         }
         if (rooms === '100') {
-          setCapacitysDisabled([0, 1, 2]);
+          setCapacityDisabled([0, 1, 2]);
           rooms = capacityElement[3].selected = true;
         }
         break;

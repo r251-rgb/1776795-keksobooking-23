@@ -2,7 +2,7 @@ import {showModalWindow} from '../js/modal.js';
 const imagePreviewElement = document.querySelector('.ad-form__photo');
 
 
-const FILE_TYPES = [
+const FILES_TYPE = [
   'image/jpeg',
   'image/pjpeg',
   'image/png',
@@ -11,8 +11,8 @@ const FILE_TYPES = [
 ];
 
 const checkValidFileType = (file) => {// проверка типов файлов при загрузке
-  for(let i = 0; i < FILE_TYPES.length; i++) {
-    if (file.type === FILE_TYPES[i]) {
+  for(let i = 0; i < FILES_TYPE.length; i++) {
+    if (file.type === FILES_TYPE[i]) {
       return true;
     }
   }
